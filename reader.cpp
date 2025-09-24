@@ -22,7 +22,7 @@ vector <string> ReadInputsFromFile(const string& filename)
 
     if(file.is_open())
         {
-            while(getline(file, buffer))
+            while(get(file, buffer))
                 {
                     results.push_back(buffer);
                 }
