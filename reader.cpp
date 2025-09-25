@@ -14,16 +14,17 @@
 
 //FUNCTION DEFINITION//
 
-vector <string> ReadInputsFromFile(const string& filename)
+std::vector <std::string> ReadInputsFromFile(const std::string& filename)
 {
-    vector <string> results;
-    ifstream file(filename);
-    string buffer;
+    std::vector <std::string> results;
+    std::ifstream file(filename);
+    std::string buffer;
 
     if(file.is_open())
         {
-            while(get(file, buffer))
+            while(!file.eof())
                 {
+                    file >> buffer;
                     results.push_back(buffer);
                 }
             file.close();
@@ -31,7 +32,7 @@ vector <string> ReadInputsFromFile(const string& filename)
 
     else
         {
-            cerr << "Unable to open file" << filename << endl ;
+            std::cerr << "Unable to open file" << filename << std::endl ;
         }
     return results;
 }

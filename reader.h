@@ -10,6 +10,6 @@
 #include <cstring>
 
 //FUNCTION DECLARATION//
-vector <string> ReadInputsFromFile(const string&);
+std::vector <std::string> ReadInputsFromFile(const std::string&);
 
 #endif //HEADER_H
