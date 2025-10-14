@@ -78,23 +78,34 @@ int findStartCodon(std::vector <char> inputVector)
   //Finding first letter (A)
   for(int i=0; i<inputVector.size(); i++)
     {
-      if(inputVector[i]=='A' || inputVector[i]=='a')
+        if(inputVector[i]=='A' || inputVector[i]=='a')
         {
           if(inputVector[i+1]=='U' || inputVector[i+1]=='u')
-            {
+          {
               if(inputVector[i+2]=='G' || inputVector[i+2]=='g')
-                {
-                  return i;
-                  break;
-                }
-
+              {
+                return i;
+                break;
+              }
+    
               else 
-                {
-                  std::cerr << "No start Codon found" <<std::endl;
-                  return -1;
-                }
-             }
+              {
+                std::cerr << "No start Codon found" <<std::endl;
+                return -1;
+              }
+            }
+          else 
+          {
+            std::cerr << "No start Codon found" <<std::endl;
+            return -1;
           }
+        }
+          
+        else 
+        {
+          std::cerr << "No start Codon found" <<std::endl;
+          return -1;
+        }
       }
             
 
