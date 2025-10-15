@@ -55,12 +55,24 @@ void DNAtoRNA()
 
 std::vector <std::string> RNAtoAminoAcids(std::vector <char> RNAvector)
 {
-  std::vector <std::string> aminoAcids ;
+  std::vector <std::string> aminoAcids ; //Stock résultats
   std::string codon;
+  int n = aminoAcidsList.size();
+
+  for(int i=0; i<RNAvector.size(); i+=3)
+    {
+      codon = RNAvector[i] + RNAvector[i+1] + RNAvector[i+2] ;
+
+      for(int j=0; j<n ; j++)
+        {
+          
+        }
+    }
+      
 
 }
   
-//CHAR METHODS//
+//COMP METHODS//
 
 bool sameChar(const char& a, const char& b)
 {
@@ -72,9 +84,11 @@ bool sameChar(const char& a, const char& b)
 }
 
 
+
 //SEARCH METHODS//
 int findStartCodon(std::vector <char> inputVector)
 {
+  int indexOfStartCodon = 0;
   //Finding first letter (A)
   for(int i=0; i<inputVector.size(); i++)
     {
@@ -84,29 +98,52 @@ int findStartCodon(std::vector <char> inputVector)
           {
               if(inputVector[i+2]=='G' || inputVector[i+2]=='g')
               {
-                return i;
+                indexOfStartCodon = i;
                 break;
               }
     
               else 
               {
-                std::cerr << "No start Codon found" <<std::endl;
-                return -1;
+                indexOfStartCodon = -1;
               }
             }
           else 
           {
-            std::cerr << "No start Codon found" <<std::endl;
-            return -1;
+            indexOfStartCodon = -1;
           }
         }
           
         else 
         {
-          std::cerr << "No start Codon found" <<std::endl;
-          return -1;
+          indexOfStartCodon = -1;
         }
       }
+
+  if(indexOfStartCodon >= 0)
+    return indexOfStartCodon;
+  else
+    std::cerr << "Not able to find start codon" << std::endl;
             
 
+}
+
+
+//VECTOR METHODS//
+bool isIn(std::string s, std::vector <std::string> vec)
+{
+  int n = vec.size();
+  bool b;
+
+  for(int i=0; i<n; i++)
+    {
+      if(s==vec[i])
+        {
+          b=true;
+          break;
+        }
+      else
+        b=false;
+    }
+
+  return b;
 }
