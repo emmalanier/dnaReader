@@ -44,7 +44,7 @@ inline aminoAcidInfo Y{"Tyr", {"UAU", "UAC", "uau", "uac"}};
 inline aminoAcidInfo V{"Val", {"GUU", "GUC", "GUA", "GUG", "guu", "guc", "gua", "gug"}};
 inline aminoAcidInfo STO{"Stop", {"UAG", "UAA", "UGA", "uag", "uaa", "uga"}};
 
-std::vector <aminoAcidInfo> aminoAcidsList = {A, R, N, D, C, Q, E, G, H, I, L, K, M, F, P, S, T, W, Y, V, STO};
+inline std::vector <aminoAcidInfo> aminoAcidsList = {A, R, N, D, C, Q, E, G, H, I, L, K, M, F, P, S, T, W, Y, V, STO};
 
 ////////////////////////
 //FUNCTION DECLARATION//

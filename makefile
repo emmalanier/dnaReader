@@ -56,8 +56,8 @@ all: ${EXE}
 # Edition de lien du programme ne se limitant pas a un programme principal
 # Ex : OndeTest.exe:OndeTest.o OndeStat.o
 	#Ex : ${GPP} -o OndeTest.exe OndeTest.o OndeStat.o
-main.exe:main.o reader.o 
-	${GPP} -o main.exe main.o reader.o 
+main.exe:main.o reader.o stringMethods.o
+	${GPP} -o main.exe main.o reader.o stringMethods.o
 
 #header.o ${GSL_LIBS}
 

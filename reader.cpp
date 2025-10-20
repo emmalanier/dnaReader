@@ -57,19 +57,26 @@ void DNAtoRNA()
 std::vector <std::string> RNAtoAminoAcids(std::vector <char> RNAvector)
 {
   std::vector <std::string> aminoAcids ; //Stock résultats
-  myString codon();
+  myString codon;
   int n = aminoAcidsList.size();
+  std::string interString;
 
   for(int i=0; i<RNAvector.size(); i+=3)
     {
-      codon.setMyStringVar(RNAvector[i] + RNAvector[i+1] + RNAvector[i+2]) ;
+      interString = RNAvector[i] + RNAvector[i+1] + RNAvector[i+2];
+      codon.setMyStringVar(interString) ;
 
       for(int j=0; j<n ; j++)
         {
-          if(codon.isIn(
+          if(codon.isIn(aminoAcidsList[j].codons) == true)
+            {
+              aminoAcids.push_back(aminoAcidsList[j].name);
+              break;
+            }
         }
     }
-      
+
+  return aminoAcids;
 
 }
   
@@ -130,7 +137,7 @@ int findStartCodon(std::vector <char> inputVector)
 
 
 //VECTOR METHODS//
-bool isIn(std::string s, std::vector <std::string> vec)
+/*bool isIn(std::string s, std::vector <std::string> vec)
 {
   int n = vec.size();
   bool b;
@@ -147,4 +154,4 @@ bool isIn(std::string s, std::vector <std::string> vec)
     }
 
   return b;
-}
+}*/
