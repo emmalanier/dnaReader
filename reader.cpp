@@ -11,6 +11,7 @@
 
 //LINKS//
 #include "reader.h"
+#include "stringHeader.h"
 
 #define codonSize 3
 ///////////////////////
@@ -56,16 +57,16 @@ void DNAtoRNA()
 std::vector <std::string> RNAtoAminoAcids(std::vector <char> RNAvector)
 {
   std::vector <std::string> aminoAcids ; //Stock résultats
-  std::string codon;
+  myString codon();
   int n = aminoAcidsList.size();
 
   for(int i=0; i<RNAvector.size(); i+=3)
     {
-      codon = RNAvector[i] + RNAvector[i+1] + RNAvector[i+2] ;
+      codon.setMyStringVar(RNAvector[i] + RNAvector[i+1] + RNAvector[i+2]) ;
 
       for(int j=0; j<n ; j++)
         {
-          
+          if(codon.isIn(
         }
     }
       

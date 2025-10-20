@@ -9,6 +9,15 @@
 #include <vector>
 #include <string>
 
+//////////////
+//STRUCTURES//
+//////////////
+struct aminoAcidInfo
+{
+  std::string name ;
+  std::vector <std::string> codons ;
+};
+
 //////////
 //ARRAYS//
 //////////
