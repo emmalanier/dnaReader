@@ -43,9 +43,27 @@ std::vector <char> ReadInputsFromFile(const std::string& filename)
     return results;
 }
 
-void chooseDataType()
+std::string chooseDataType()
 {
+  int number;
+  std::string choice;
+  
+  std::cout << "Does the file contain DNA or RNA" << std::endl;
+  std::cout << "1. DNA" << std::endl;
+  std::cout << "2. RNA" << std::endl;
+  std::cout << "3. Unknown data type" << std::endl;
+  std::cout << "Please enter a number" << std::endl;
 
+  std::cin >> number;
+
+  if(number==1)
+    choice = "DNA";
+  else if(number==2)
+    choice = "RNA";
+  else
+    std::cerr << "Unknown type ; can't work" << std::endl; //To implement : method to analyze the file
+
+  return choice;
 }
 
 //???//

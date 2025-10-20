@@ -52,7 +52,7 @@ inline std::vector <aminoAcidInfo> aminoAcidsList = {A, R, N, D, C, Q, E, G, H, 
 
 //INPUTS//
 std::vector <char> ReadInputsFromFile(const std::string&);
-void chooseDataType(); //To tell if the file contains DNA or RNA
+std::string chooseDataType(); //To tell if the file contains DNA or RNA
 
 //CHAR METHODS//
 bool sameChar(const char&, const char&);
@@ -65,6 +65,8 @@ void DNAtoRNA(); //If the file contains DNA, converts it into RNA
 std::vector <std::string> RNAtoAminoAcids(std::vector <char>);
 
 //VECTOR SEARCH//
-bool isIn(std::string, std::vector <std::string>);
+//bool isIn(std::string, std::vector <std::string>);
+
+//WRITING METHODS//
 
 #endif //READER_H
