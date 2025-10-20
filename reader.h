@@ -22,29 +22,29 @@ struct aminoAcidInfo
 //ARRAYS//
 //////////
 
-std::vector <std::string> Ala = {"GCU", "GCC", "GCA", "GCG", "gcu", "gcc", "gca", "gcg"};
-std::vector <std::string> Arg = {"CGU", "CGC", "CGA", "CGG", "AGA", "AGG", "cgu", "cgc", "cga", "cgg", "aga", "agg"};
-std::vector <std::string> Asn = {"AAU", "AAC", "aau", "aac"};
-std::vector <std::string> Asp = {"GAU", "GAC", "gau", "gac"};
-std::vector <std::string> Cys = {"UGU", "UGC", "ugu", "ugc"};
-std::vector <std::string> Gln = {"CAA", "CAG", "caa", "cag"};
-std::vector <std::string> Glu = {"GAA", "GAG", "gaa", "gag"};
-std::vector <std::string> Gly = {"GGU", "GGC", "GGA", "GGG", "ggu", "ggc", "gga", "ggg"};
-std::vector <std::string> His = {"CAU", "CAC", "cau", "cac"};
-std::vector <std::string> Ile = {"AUU", "AUC", "AUA", "auu", "auc", "aua"};
-std::vector <std::string> Leu = {"UUA", "UUG", "CUU", "CUC", "CUA", "CUG", "uua", "uug", "cuu", "cuc", "cua", "cug"};
-std::vector <std::string> Lys = {"AAA", "AAG", "aaa", "aag"};
-std::vector <std::string> Met = {"AUG", "aug"};
-std::vector <std::string> Phe = {"UUU", "UUC", "uuu", "uuc"};
-std::vector <std::string> Pro = {"CCU", "CCC", "CCA", "CCG", "ccu", "ccc", "cca", "ccg"};
-std::vector <std::string> Ser = {"UCU", "UCC", "UCA", "UCG", "AGU", "AGC", "ucu", "ucc", "uca", "ucg", "agu", "agc"};
-std::vector <std::string> Thr = {"ACU", "ACC", "ACA", "ACG", "acu", "acc", "aca", "acg"};
-std::vector <std::string> Trp = {"UGG", "ugg"};
-std::vector <std::string> Tyr = {"UAU", "UAC", "uau", "uac"};
-std::vector <std::string> Val = {"GUU", "GUC", "GUA", "GUG", "guu", "guc", "gua", "gug"};
-std::vector <std::string> STOP = {"UAG", "UAA", "UGA", "uag", "uaa", "uga"};
+inline aminoAcidInfo A{"Ala", {"GCU", "GCC", "GCA", "GCG", "gcu", "gcc", "gca", "gcg"}};
+inline aminoAcidInfo R{"Arg", {"CGU", "CGC", "CGA", "CGG", "AGA", "AGG", "cgu", "cgc", "cga", "cgg", "aga", "agg"}};
+inline aminoAcidInfo N{"Asn", {"AAU", "AAC", "aau", "aac"}};
+inline aminoAcidInfo D{"Asp", {"GAU", "GAC", "gau", "gac"}};
+inline aminoAcidInfo C{"Cys", {"UGU", "UGC", "ugu", "ugc"}};
+inline aminoAcidInfo Q{"Gln", {"CAA", "CAG", "caa", "cag"}};
+inline aminoAcidInfo E{"Glu", {"GAA", "GAG", "gaa", "gag"}};
+inline aminoAcidInfo G{"Gly", {"GGU", "GGC", "GGA", "GGG", "ggu", "ggc", "gga", "ggg"}};
+inline aminoAcidInfo H{"His", {"CAU", "CAC", "cau", "cac"}};
+inline aminoAcidInfo I{"Ile", {"AUU", "AUC", "AUA", "auu", "auc", "aua"}};
+inline aminoAcidInfo L{"Leu", {"UUA", "UUG", "CUU", "CUC", "CUA", "CUG", "uua", "uug", "cuu", "cuc", "cua", "cug"}};
+inline aminoAcidInfo K{"Lys", {"AAA", "AAG", "aaa", "aag"}};
+inline aminoAcidInfo M{"Met", {"AUG", "aug"}};
+inline aminoAcidInfo F{"Phe", {"UUU", "UUC", "uuu", "uuc"}};
+inline aminoAcidInfo P{"Pro", {"CCU", "CCC", "CCA", "CCG", "ccu", "ccc", "cca", "ccg"}};
+inline aminoAcidInfo S{"Ser", {"UCU", "UCC", "UCA", "UCG", "AGU", "AGC", "ucu", "ucc", "uca", "ucg", "agu", "agc"}};
+inline aminoAcidInfo T{"Thr", {"ACU", "ACC", "ACA", "ACG", "acu", "acc", "aca", "acg"}};
+inline aminoAcidInfo W{"Trp", {"UGG", "ugg"}};
+inline aminoAcidInfo Y{"Tyr", {"UAU", "UAC", "uau", "uac"}};
+inline aminoAcidInfo V{"Val", {"GUU", "GUC", "GUA", "GUG", "guu", "guc", "gua", "gug"}};
+inline aminoAcidInfo STO{"Stop", {"UAG", "UAA", "UGA", "uag", "uaa", "uga"}};
 
-std::vector <std::vector <std::string>> aminoAcidsList = {Ala, Arg, Asn, Asp, Cys, Gln, Glu, Gly, His, Ile, Leu, Lys, Met, Phe, Pro, Ser, Thr, Trp, Tyr, Val, STOP};
+std::vector <aminoAcidInfo> aminoAcidsList = {A, R, N, D, C, Q, E, G, H, I, L, K, M, F, P, S, T, W, Y, V, STO};
 
 ////////////////////////
 //FUNCTION DECLARATION//
