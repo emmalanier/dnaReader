@@ -6,6 +6,9 @@
 #define READER_H
 
 //INCLUDES//
+#include <fstream>
+#include <iostream>
+#include <iomanip>
 #include <vector>
 #include <string>
 
@@ -67,6 +70,7 @@ std::vector <std::string> RNAtoAminoAcids(std::vector <char>);
 //VECTOR SEARCH//
 //bool isIn(std::string, std::vector <std::string>);
 
-//WRITING METHODS//
+//OUTPUTS//
+void writeAminoAcidsInFile();
 
 #endif //READER_H

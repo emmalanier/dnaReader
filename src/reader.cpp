@@ -2,13 +2,6 @@
 //DNA READER - READER.CPP//
 ///////////////////////////
 
-//INCLUDES//
-#include <fstream>
-#include <iostream>
-#include <cmath>
-#include <string>
-#include <vector>
-
 //LINKS//
 #include "reader.h"
 #include "stringHeader.h"
@@ -173,3 +166,13 @@ int findStartCodon(std::vector <char> inputVector)
 
   return b;
 }*/
+
+//OUTPUTS//
+void writeAminoAcidsInFile(std::vector <std::string> aaList)
+{
+  int n = aaList.size();
+  std::streambuf* coutbuf = std::cout.rdbuf();
+  std::ofstream outputFile("aminoAcidsSequence.txt");
+
+  //for(int
+    }
