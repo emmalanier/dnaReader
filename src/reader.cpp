@@ -84,14 +84,14 @@ void DNAtoRNA(const std::string& filename)
   
 }
 
-std::vector <std::string> RNAtoAminoAcids(std::vector <char> RNAvector)
+std::vector <std::string> RNAtoAminoAcids(std::vector <char> RNAvector, int posStartCodon)
 {
   std::vector <std::string> aminoAcids ; //Stock résultats
   myString codon;
   int n = aminoAcidsList.size();
   std::string interString;
 
-  for(int i=0; i<RNAvector.size(); i+=3)
+  for(int i=posStartCodon; i<RNAvector.size(); i+=3)
     {
       interString = RNAvector[i] + RNAvector[i+1] + RNAvector[i+2];
       codon.setMyStringVar(interString) ;

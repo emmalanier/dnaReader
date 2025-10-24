@@ -64,13 +64,13 @@ bool sameChar(const char&, const char&);
 int findStartCodon(std::vector <char>);
 
 //CONVERSION METHODS//
-void DNAtoRNA(); //If the file contains DNA, converts it into RNA
-std::vector <std::string> RNAtoAminoAcids(std::vector <char>);
+void DNAtoRNA(const std::string&); //If the file contains DNA, converts it into RNA
+std::vector <std::string> RNAtoAminoAcids(std::vector <char>, int);
 void replaceChar();
 //VECTOR SEARCH//
 //bool isIn(std::string, std::vector <std::string>);
 
 //OUTPUTS//
-void writeAminoAcidsInFile();
+void writeAminoAcidsInFile(std::vector <std::string>);
 
 #endif //READER_H
