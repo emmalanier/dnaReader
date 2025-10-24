@@ -59,10 +59,29 @@ std::string chooseDataType()
   return choice;
 }
 
-//???//
-void DNAtoRNA()
+//CONVERSION METHODS//
+void DNAtoRNA(const std::string& filename)
 {
+  char inputBuffer;
+  std::fstream file(filename, std::fstream::in | std::fstream::out);
+  std::streambuf* coutbuf = std::cout.rdbuf();
 
+  while(!file.eof())
+    {
+      inputBuffer = getchar();
+      if(inputBuffer == 'T' || inputBuffer == 't')
+        {
+          if(inputBuffer == 'T')
+            file.put('U');
+          else if(inputBuffer == 't')
+            file.put('u');
+          else
+            std::cerr << "Error" << std::endl;
+        }
+    }
+
+  file.close();
+  
 }
 
 std::vector <std::string> RNAtoAminoAcids(std::vector <char> RNAvector)
@@ -89,6 +108,11 @@ std::vector <std::string> RNAtoAminoAcids(std::vector <char> RNAvector)
 
   return aminoAcids;
 
+}
+
+void replaceChar(const std::string& filename, char c)
+{
+  std::fstream file(filename, std::ios::in | std::ios::out);
 }
   
 //COMP METHODS//
@@ -173,6 +197,14 @@ void writeAminoAcidsInFile(std::vector <std::string> aaList)
   int n = aaList.size();
   std::streambuf* coutbuf = std::cout.rdbuf();
   std::ofstream outputFile("aminoAcidsSequence.txt");
+  std::cout.rdbuf(outputFile.rdbuf());
 
-  //for(int
+  for(int i=0; i<n; i++)
+    {
+      std::cout << aaList[i] << " - " ;
     }
+
+  std::cout.rdbuf(coutbuf);
+  outputFile.close();
+    
+}
