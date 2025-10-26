@@ -25,6 +25,15 @@ struct position
   double z;
 };
 
+struct myVector
+{
+  double size;
+
+  double x_vector;
+  double y_vector;
+  double z_vector;
+};
+
 struct electron
 {
   position electronPosition;
@@ -33,6 +42,8 @@ struct electron
 struct electronicBond
 {
   int numberOfElectronPairs;
+
+  std::string bondType;
 
   std::vector <electron> groupA;
   std::vector <electron> groupB;
@@ -45,6 +56,7 @@ struct atom
   int electronsNumber;
   int lonePairsNumber;
   int sharedPairsNumber;
+  int totalPairsNumber;
 
   double electronegativity;
   double atomicMass;
@@ -61,5 +73,13 @@ struct molecule
   std::vector <atom> atoms;
 
 };
+
+///////////
+//METHODS//
+///////////
+
+myVector distanceVector(electron, electron);
+
+double distanceValue(position, position);
 
 #endif //MOLECULES_H

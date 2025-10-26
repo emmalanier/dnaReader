@@ -12,6 +12,7 @@
 
 //LINKS//
 #include "reader.h"
+#include "molecules.h"
 
 //VARIABLES//
 
@@ -25,6 +26,8 @@ int startCodonPos ;
 
 int main()
 {
+
+//DNA to amino acids//
   std::cout << "Enter file name : " << std::endl;
   std::cin>>filename;
 
@@ -40,17 +43,39 @@ int main()
       inputs = ReadInputsFromFile(filename);
     }
 
-
   startCodonPos = findStartCodon(inputs);
 
   outputs = RNAtoAminoAcids(inputs, startCodonPos);
 
-  for(int i=0; i<outputs.size(); i++)
-    {
-      std::cout<< outputs[i]<<std::endl;
-    }
-
   writeAminoAcidsInFile(outputs);
+
+  
+//Creating a molecule(test)
+  molecule water;
+  water.atoms.push_back(atom1);
+  water.atoms.push_back(atom2);
+  water.atoms.push_back(atom3);
+
+  water.moleculeName = "Water";
+
+/*struct atom
+{
+  int atomicNumber;
+  int protonsNumber;
+  int electronsNumber;
+  int lonePairsNumber;
+  int sharedPairsNumber;
+  int totalPairsNumber;
+
+  double electronegativity;
+  double atomicMass;
+  double atomicRadius;
+
+  std::string elementName;
+
+  std::vector <electronicBond> electronicBondsList;
+};*/
+  
   
   return 0;
 
