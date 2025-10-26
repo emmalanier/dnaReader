@@ -65,6 +65,7 @@ int findStartCodon(std::vector <char>);
 
 //CONVERSION METHODS//
 void DNAtoRNA(const std::string&); //If the file contains DNA, converts it into RNA
+std::vector <char> DNAtoRNAbis(const std::string&); //If the file contains DNA, converts it into RNA
 std::vector <std::string> RNAtoAminoAcids(std::vector <char>, int);
 void replaceChar();
 //VECTOR SEARCH//

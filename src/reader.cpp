@@ -23,8 +23,8 @@ std::vector <char> ReadInputsFromFile(const std::string& filename)
         {
             while(!file.eof())
                 {
-                    file >> buffer;
-                    results.push_back(buffer);
+                    //file >> buffer;
+                    results.push_back(file.get());
                 }
             file.close();
         }
@@ -84,6 +84,24 @@ void DNAtoRNA(const std::string& filename)
   
 }
 
+std::vector <char> DNAtoRNAbis(const std::string& filename)
+{
+  std::vector <char> inputs = ReadInputsFromFile(filename);
+  int n = inputs.size();
+
+  for(int i = 0; i<n; i++)
+    {
+      if(inputs[i] == 't')
+        inputs[i] = 'u' ;
+      else if(inputs[i] == 'T')
+        inputs[i] = 'U';
+    }
+  
+  return inputs;
+}
+
+  
+
 std::vector <std::string> RNAtoAminoAcids(std::vector <char> RNAvector, int posStartCodon)
 {
   std::vector <std::string> aminoAcids ; //Stock résultats
@@ -91,9 +109,11 @@ std::vector <std::string> RNAtoAminoAcids(std::vector <char> RNAvector, int posS
   int n = aminoAcidsList.size();
   std::string interString;
 
-  for(int i=posStartCodon; i<RNAvector.size(); i+=3)
+  for(int i=posStartCodon; i<RNAvector.size()-posStartCodon; i+=3)
     {
-      interString = RNAvector[i] + RNAvector[i+1] + RNAvector[i+2];
+      interString.push_back(RNAvector[i]) ;
+      interString.push_back(RNAvector[i+1] );
+      interString.push_back(RNAvector[i+2]);
       codon.setMyStringVar(interString) ;
 
       for(int j=0; j<n ; j++)
@@ -104,6 +124,7 @@ std::vector <std::string> RNAtoAminoAcids(std::vector <char> RNAvector, int posS
               break;
             }
         }
+      interString.clear();
     }
 
   return aminoAcids;
@@ -165,7 +186,7 @@ int findStartCodon(std::vector <char> inputVector)
   if(indexOfStartCodon >= 0)
     return indexOfStartCodon;
   else
-    std::cerr << "Not able to find start codon" << std::endl;
+    std::cerr << "Not able to find start codon" << std::endl ;
             
 
 }
@@ -197,7 +218,7 @@ void writeAminoAcidsInFile(std::vector <std::string> aaList)
   int n = aaList.size();
   std::streambuf* coutbuf = std::cout.rdbuf();
   std::ofstream outputFile("aminoAcidsSequence.txt");
-  std::cout.rdbuf(outputFile.rdbuf());
+//  std::cout.rdbuf(outputFile.rdbuf());
 
   for(int i=0; i<n; i++)
     {

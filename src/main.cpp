@@ -32,14 +32,23 @@ int main()
 
   if(dataType == "DNA")
     {
-      DNAtoRNA(filename);
+      inputs = DNAtoRNAbis(filename);
     }
   
-  inputs = ReadInputsFromFile(filename);
+  else if(dataType == "RNA")
+    {
+      inputs = ReadInputsFromFile(filename);
+    }
+
 
   startCodonPos = findStartCodon(inputs);
 
   outputs = RNAtoAminoAcids(inputs, startCodonPos);
+
+  for(int i=0; i<outputs.size(); i++)
+    {
+      std::cout<< outputs[i]<<std::endl;
+    }
 
   writeAminoAcidsInFile(outputs);
   
