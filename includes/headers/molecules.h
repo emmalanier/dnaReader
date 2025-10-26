@@ -1,0 +1,8 @@
+////////////////////////////
+//DNA READER - MOLECULES.H//
+////////////////////////////
+
+#ifndef MOLECULES_H
+#define MOLECULES_H
+
+#endif //MOLECULES_H
