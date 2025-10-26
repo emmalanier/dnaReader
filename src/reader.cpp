@@ -218,7 +218,7 @@ void writeAminoAcidsInFile(std::vector <std::string> aaList)
   int n = aaList.size();
   std::streambuf* coutbuf = std::cout.rdbuf();
   std::ofstream outputFile("aminoAcidsSequence.txt");
-//  std::cout.rdbuf(outputFile.rdbuf());
+  std::cout.rdbuf(outputFile.rdbuf());
 
   for(int i=0; i<n; i++)
     {
