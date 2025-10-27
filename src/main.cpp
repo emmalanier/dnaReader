@@ -27,7 +27,7 @@ int startCodonPos ;
 int main()
 {
 
-//DNA to amino acids//
+//DNA to amino acids////
   std::cout << "Enter file name : " << std::endl;
   std::cin>>filename;
 
