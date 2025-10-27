@@ -59,7 +59,7 @@ std::string chooseDataType()
   return choice;
 }
 
-//CONVERSION METHODS//
+//CONVERSION METHODS////
 void DNAtoRNA(const std::string& filename)
 {
   char inputBuffer;
