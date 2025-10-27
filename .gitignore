@@ -7,3 +7,6 @@ obj/
 *.o
 *.exe
 *.out
+
+# Other files
+*.txt
