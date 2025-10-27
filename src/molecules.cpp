@@ -24,7 +24,11 @@ myVector distanceVector(electron A, electron B)
 
 double distanceValue(position A, position B)
 {
+  double results ;
+  
+  results = sqrt(pow((B.x-A.x), 2) + pow((B.y-A.y), 2) + pow((B.z-A.z),2));
 
+  return results;
 }
 
 //ATOM CREATION//
