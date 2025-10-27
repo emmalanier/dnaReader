@@ -15,6 +15,8 @@ myVector distanceVector(electron A, electron B)
 {
   myVector results;
 
+  results.size = distanceValue(A.atomPosition, B.atomPosition);
+
   results.x_vector = B.atomPosition.x - A.atomPosition.x ;
   results.y_vector = B.atomPosition.y - A.atomPosition.y ;
   results.z_vector = B.atomPosition.z - A.atomPosition.z ;
