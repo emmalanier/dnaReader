@@ -13,10 +13,22 @@
 #include <iomanip>
 #include <vector>
 #include <string>
+#include <sqlite3.h>
+#include <stdexcept>
 
 //////////////
 //STRUCTURES//
 //////////////
+
+struct elementInfo
+{
+  std::string elementSymbol;
+  std::string elementName;
+  int atomicNumber;
+  int protonNumber;
+  double atomicRadius;
+  double electronegativity;
+}
 
 struct position
 {
@@ -51,18 +63,17 @@ struct electronicBond
 
 struct atom
 {
-  int atomicNumber;
-  int protonsNumber;
   int electronsNumber;
   int lonePairsNumber;
   int sharedPairsNumber;
   int totalPairsNumber;
 
-  double electronegativity;
   double atomicMass;
-  double atomicRadius;
 
   std::string elementName;
+
+  elementInfo infos;
+  position atomPosition;
 
   std::vector <electronicBond> electronicBondsList;
 };
@@ -74,12 +85,22 @@ struct molecule
 
 };
 
-///////////
-//METHODS//
-///////////
+///////////////
+//C++ METHODS//
+///////////////
 
+//MATHS//
 myVector distanceVector(electron, electron);
 
 double distanceValue(position, position);
+
+//ATOM CREATION//
+atom createAtom();
+
+///////////////
+//SQL METHODS//
+///////////////
+
+elementInfo getElementInfoFromDB(sqlite3*, const std::string&);
 
 #endif //MOLECULES_H
