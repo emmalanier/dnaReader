@@ -28,7 +28,7 @@ struct elementInfo
   int protonNumber;
   double atomicRadius;
   double electronegativity;
-}
+};
 
 struct position
 {

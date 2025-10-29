@@ -28,7 +28,7 @@ int main()
 {
 
 //DNA to amino acids////
-  std::cout << "Enter file name : " << std::endl;
+/*  std::cout << "Enter file name : " << std::endl;
   std::cin>>filename;
 
   dataType = chooseDataType();
@@ -47,34 +47,23 @@ int main()
 
   outputs = RNAtoAminoAcids(inputs, startCodonPos);
 
-  writeAminoAcidsInFile(outputs);
-
+  writeAminoAcidsInFile(outputs);*////
   
-//Creating a molecule(test)
-  molecule water;
-  water.atoms.push_back(atom1);
-  water.atoms.push_back(atom2);
-  water.atoms.push_back(atom3);
+  sqlite3* database = nullptr;
+  int result = sqlite3_open("elements.db", &database);  // Opens the file
 
-  water.moleculeName = "Water";
+if (result != SQLITE_OK) {
+    std::cerr << "Error opening database: " << sqlite3_errmsg(database) << std::endl;
+    return 1;  // or throw std::runtime_error if you prefer
+}
 
-/*struct atom
-{
-  int atomicNumber;
-  int protonsNumber;
-  int electronsNumber;
-  int lonePairsNumber;
-  int sharedPairsNumber;
-  int totalPairsNumber;
+std::cout << "Database opened successfully!" << std::endl;
+  
+  atom oxygenAtom;
+  oxygenAtom.infos = getElementInfoFromDB( database ,"O");
 
-  double electronegativity;
-  double atomicMass;
-  double atomicRadius;
+  std::cout << "Atom selected : " <<oxygenAtom.infos.elementName<< " ("<<oxygenAtom.infos.elementSymbol<<") "<<std::endl;
 
-  std::string elementName;
-
-  std::vector <electronicBond> electronicBondsList;
-};*/
   
   
   return 0;

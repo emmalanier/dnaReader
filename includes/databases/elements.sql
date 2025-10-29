@@ -4,9 +4,9 @@
 
 --TABLE CREATION--
 
-CREATE TABLE elements(
-  elementSymbol VARCHAR PRIMARY KEY,
-  elementName VARCHAR,
+CREATE TABLE if NOT EXISTS elements(
+  elementSymbol TEXT PRIMARY KEY,
+  elementName TEXT,
   atomicNumber INT,
   protonNumber INT,
   atomicRadius REAL,
