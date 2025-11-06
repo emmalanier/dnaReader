@@ -15,6 +15,7 @@
 #include <string>
 #include <sqlite3.h>
 #include <stdexcept>
+#include <tuple>
 
 //////////////
 //STRUCTURES//
@@ -29,6 +30,7 @@ struct elementInfo
   double atomicRadius;
   double electronegativity;
 };
+
 
 struct position
 {
@@ -68,6 +70,8 @@ struct atom
   int sharedPairsNumber;
   int totalPairsNumber;
 
+  std::string idInMolecule ;
+
   double atomicMass;
 
   std::string elementName;
@@ -82,6 +86,7 @@ struct molecule
 {
   std::string moleculeName;
   std::vector <atom> atoms;
+  std::tuple <std::string, int> numberOfAtoms;
 
 };
 
@@ -96,6 +101,18 @@ double distanceValue(position, position);
 
 //ATOM CREATION//
 atom createAtom();
+
+//MOLECULE METHODS//
+atom putFirstAtom(); //PF
+atom addAnAtomicBond(); //AAAB
+atom selectAnOtherAtom(); //SAOA
+molecule linkWith(); //LW
+molecule separateFrom(); //SF
+
+//MOLECULE BUILDING//
+molecule buildMolecule();
+molecule preBuiltMolecule();
+molecule buildFromScratch();
 
 ///////////////
 //SQL METHODS//

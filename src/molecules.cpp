@@ -11,7 +11,7 @@
 
 //MATHS//
 
-/*myVector distanceVector(electron A, electron B)
+myVector distanceVector(electron A, electron B)
 {
   myVector results;
 
@@ -32,8 +32,42 @@ double distanceValue(position A, position B)
 
   return results;
 }
-*/
+
+
 //ATOM CREATION//
+atom createAtom();
+
+//MOLECULE METHODS//
+atom putFirstAtom();
+atom addAnAtomicBond();
+atom selectAnOtherAtom();
+molecule linkWith();
+molecule separateFrom();
+
+//MOLECULE BUILDING//
+molecule buildMolecule()
+{
+  int methodChoice = 0;
+  molecule results;
+  
+  std::cout << "Select what applies : " << std::endl;
+  std::cout << "1. I know exactly what molecule I want" << std::endl;
+  std::cout << "2. I want to build a molecule from scratch" <<std::endl;
+  std::cout << "Please enter the NUMBER of what applies to you." << std::endl;
+
+  std::cin>>methodChoice;
+
+  if(methodChoice==1)
+    results = preBuiltMolecule();
+
+  else if()
+    results = buildMoleculeFromScratch();
+
+  else
+    std::cerr << "Input is not valid" << std::endl;
+
+  return results;
+}
 
 ///////////////
 //SQL METHODS//
