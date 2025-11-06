@@ -120,7 +120,7 @@ std::vector <std::string> RNAtoAminoAcids(std::vector <char> RNAvector, int posS
         {
           if(codon.isIn(aminoAcidsList[j].codons) == true)
             {
-              aminoAcids.push_back(aminoAcidsList[j].name);
+              aminoAcids.push_back(aminoAcidsList[j].aaName);
               break;
             }
         }
@@ -191,26 +191,6 @@ int findStartCodon(std::vector <char> inputVector)
 
 }
 
-
-//VECTOR METHODS//
-/*bool isIn(std::string s, std::vector <std::string> vec)
-{
-  int n = vec.size();
-  bool b;
-
-  for(int i=0; i<n; i++)
-    {
-      if(s==vec[i])
-        {
-          b=true;
-          break;
-        }
-      else
-        b=false;
-    }
-
-  return b;
-}*/
 
 //OUTPUTS//
 void writeAminoAcidsInFile(std::vector <std::string> aaList)

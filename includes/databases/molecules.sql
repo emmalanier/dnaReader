@@ -6,7 +6,7 @@ CREATE TABLE if NOT EXISTS molecules(
 
   moleculeId INT PRIMARY KEY,()
   moleculeName TEXT,
-  buildINSTRUCTIONS TEXT
+  buildInstructions TEXT
 
 );
 

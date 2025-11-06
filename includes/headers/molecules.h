@@ -88,6 +88,8 @@ struct molecule
   std::vector <atom> atoms;
   std::tuple <std::string, int> numberOfAtoms;
 
+  int moleculeId; //For SQL database
+
 };
 
 ///////////////
@@ -103,11 +105,11 @@ double distanceValue(position, position);
 atom createAtom();
 
 //MOLECULE METHODS//
-atom putFirstAtom(); //PF
-atom addAnAtomicBond(); //AAAB
-atom selectAnOtherAtom(); //SAOA
-molecule linkWith(); //LW
-molecule separateFrom(); //SF
+atom putFirstAtom(std::string); //PF
+atom addAnAtomicBond(std::string, std::string, atom); //AAAB
+atom selectAnOtherAtom(std::string); //SAOA
+molecule linkWith(molecule); //LW
+molecule separateFrom(molecule); //SF
 
 //MOLECULE BUILDING//
 molecule buildMolecule();
@@ -119,5 +121,7 @@ molecule buildFromScratch();
 ///////////////
 
 elementInfo getElementInfoFromDB(sqlite3*, const std::string&);
+molecule getMoleculeFromDB(sqlite3*, const std::string&);
+aminoAcidInfo getAminoAcidInfoFromDB(sqlite3*, const std::string&);
 
 #endif //MOLECULES_H

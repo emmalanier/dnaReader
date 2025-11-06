@@ -17,8 +17,16 @@
 //////////////
 struct aminoAcidInfo
 {
-  std::string name ;
+  std::string aaAbr ;
+  char aaLetter;
+  std::string name;
   std::vector <std::string> codons ;
+  molecule aaMolecule;
+};
+
+struct aminoAcid
+{
+  aminoAcidInfo codonsList;
 };
 
 //////////
