@@ -59,6 +59,59 @@ std::string chooseDataType()
   return choice;
 }
 
+//SQL INPUTS//
+aminoAcid getAminoAcidFromDB(sqlite3* database, const std::string& aaAbbr)
+{
+
+////VARIABLE DECLARATIONS////
+  aminoAcid results;
+  
+  const std::string sqlRequest = "SELECT aaAbbr, aaLetter, aaName, moleculeId FROM aminoAcids WHERE aaAbbr = ?;";
+
+  sqlite3_stmt* prepStatement = NULL;
+
+  int prepResult = sqlite3_prepare_v2(database, sqlRequest.c_str(), -1, &prepStatement, NULL);
+
+  //Error handling//
+  if (prepResult != SQLITE_OK) 
+  {
+    throw std::runtime_error("Failed to prepare SQL statement for element query");
+  }
+  //////////////////
+
+  int bindResult = sqlite3_bind_text(prepStatement, 1, aaAbbr.c_str(), -1, SQLITE_STATIC);///NEEDS MODIFICATION
+
+  //Error handling//
+  if (bindResult != SQLITE_OK) 
+  {
+    sqlite3_finalize(prepStatement);
+    throw std::runtime_error("Failed to bind element symbol parameter");
+  }
+  //////////////////
+
+  int stepResult = sqlite3_step(prepStatement);
+
+
+////ACTUAL METHOD////
+  if (stepResult == SQLITE_ROW)
+  {
+    results.aaAbbr = reinterpret_cast<const char*>(sqlite3_column_text(prepStatement, 0));
+    results.aaLetter = reinterpret_cast<const char*>(sqlite3_column_text(prepStatement, 1));
+    results.aaName = reinterpret_cast<const char*>(sqlite3_column_int(prepStatement, 2));
+  }
+
+  else 
+  {
+    sqlite3_finalize(prepStatement);
+    throw std::runtime_error("Element not found in database: " + aaAbbr);
+  }
+
+  sqlite3_finalize(prepStatement);
+
+  return results;
+
+}
+
 //CONVERSION METHODS//
 void DNAtoRNA(const std::string& filename)
 {
@@ -118,9 +171,9 @@ std::vector <std::string> RNAtoAminoAcids(std::vector <char> RNAvector, int posS
 
       for(int j=0; j<n ; j++)
         {
-          if(codon.isIn(aminoAcidsList[j].codons) == true)
+          if(codon.isIn(aminoAcidsList[j].codonsList) == true)
             {
-              aminoAcids.push_back(aminoAcidsList[j].aaName);
+              aminoAcids.push_back(aminoAcidsList[j].aaAbbrForList);
               break;
             }
         }

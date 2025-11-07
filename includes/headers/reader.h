@@ -11,29 +11,32 @@
 #include <iomanip>
 #include <vector>
 #include <string>
+#include "./molecules.h"
 
 //////////////
 //STRUCTURES//
 //////////////
+
 struct aminoAcidInfo
 {
-  std::string aaAbr ;
-  char aaLetter;
-  std::string name;
-  std::vector <std::string> codons ;
-  molecule aaMolecule;
+  std::string aaAbbrForList;
+  std::vector <std::string> codonsList;
 };
 
 struct aminoAcid
 {
-  aminoAcidInfo codonsList;
+  std::string aaAbbr ;
+  std::string aaLetter;
+  std::string aaName;
+  std::vector <std::string> codons ;
+  molecule aaMolecule;
 };
 
 //////////
 //ARRAYS//
 //////////
 
-inline aminoAcidInfo A{"Ala", {"GCU", "GCC", "GCA", "GCG", "gcu", "gcc", "gca", "gcg"}};
+inline aminoAcidInfo A{"Ala",{"GCU", "GCC", "GCA", "GCG", "gcu", "gcc", "gca", "gcg"}};
 inline aminoAcidInfo R{"Arg", {"CGU", "CGC", "CGA", "CGG", "AGA", "AGG", "cgu", "cgc", "cga", "cgg", "aga", "agg"}};
 inline aminoAcidInfo N{"Asn", {"AAU", "AAC", "aau", "aac"}};
 inline aminoAcidInfo D{"Asp", {"GAU", "GAC", "gau", "gac"}};
@@ -53,7 +56,7 @@ inline aminoAcidInfo T{"Thr", {"ACU", "ACC", "ACA", "ACG", "acu", "acc", "aca", 
 inline aminoAcidInfo W{"Trp", {"UGG", "ugg"}};
 inline aminoAcidInfo Y{"Tyr", {"UAU", "UAC", "uau", "uac"}};
 inline aminoAcidInfo V{"Val", {"GUU", "GUC", "GUA", "GUG", "guu", "guc", "gua", "gug"}};
-inline aminoAcidInfo STO{"Stop", {"UAG", "UAA", "UGA", "uag", "uaa", "uga"}};
+inline aminoAcidInfo STO{"STOP", {"UAG", "UAA", "UGA", "uag", "uaa", "uga"}};
 
 inline std::vector <aminoAcidInfo> aminoAcidsList = {A, R, N, D, C, Q, E, G, H, I, L, K, M, F, P, S, T, W, Y, V, STO};
 
@@ -64,6 +67,9 @@ inline std::vector <aminoAcidInfo> aminoAcidsList = {A, R, N, D, C, Q, E, G, H, 
 //INPUTS//
 std::vector <char> ReadInputsFromFile(const std::string&);
 std::string chooseDataType(); //To tell if the file contains DNA or RNA
+
+//SQL INPUTS//
+aminoAcid getAminoAcidFromDB(sqlite3*, const std::string&);
 
 //CHAR METHODS//
 bool sameChar(const char&, const char&);

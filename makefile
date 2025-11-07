@@ -13,8 +13,8 @@ OBJ=$(SRC:.cpp=.o)
 
 # SQL Section :
 LDFLAGS = -lgsl -lgslcblas -lm -lsqlite3 -Iincludes -Iincludes/databases
-DB = elements.db
-SQL = ./includes/databases/elements.sql
+DB = elements.db molecules.db aminoAcids.db
+SQL = ./includes/databases/*.sql
 
 
 #######################################################################################

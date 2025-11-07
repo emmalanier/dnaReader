@@ -16,6 +16,7 @@
 #include <sqlite3.h>
 #include <stdexcept>
 #include <tuple>
+#include <cmath>
 
 //////////////
 //STRUCTURES//
@@ -74,8 +75,6 @@ struct atom
 
   double atomicMass;
 
-  std::string elementName;
-
   elementInfo infos;
   position atomPosition;
 
@@ -88,9 +87,12 @@ struct molecule
   std::vector <atom> atoms;
   std::tuple <std::string, int> numberOfAtoms;
 
-  int moleculeId; //For SQL database
+  std::string moleculeId; //For SQL database
+  std::string buildInstructions;
 
 };
+
+
 
 ///////////////
 //C++ METHODS//
@@ -102,7 +104,7 @@ myVector distanceVector(electron, electron);
 double distanceValue(position, position);
 
 //ATOM CREATION//
-atom createAtom();
+atom createAtom(sqlite3*, std::string);
 
 //MOLECULE METHODS//
 atom putFirstAtom(std::string); //PF
@@ -122,6 +124,6 @@ molecule buildFromScratch();
 
 elementInfo getElementInfoFromDB(sqlite3*, const std::string&);
 molecule getMoleculeFromDB(sqlite3*, const std::string&);
-aminoAcidInfo getAminoAcidInfoFromDB(sqlite3*, const std::string&);
+
 
 #endif //MOLECULES_H

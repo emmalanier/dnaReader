@@ -52,10 +52,11 @@ int main()
   sqlite3* database = nullptr;
   int result = sqlite3_open("elements.db", &database);  // Opens the file
 
-if (result != SQLITE_OK) {
+  if (result != SQLITE_OK) 
+  {
     std::cerr << "Error opening database: " << sqlite3_errmsg(database) << std::endl;
     return 1;  // or throw std::runtime_error if you prefer
-}
+  }
 
 std::cout << "Database opened successfully!" << std::endl;
   
