@@ -81,6 +81,12 @@ atom selectAnOtherAtom(std::string atomId)
 molecule linkWith();
 molecule separateFrom();
 
+std::vector <std::string> readInstructions(molecule m)
+{
+  std:vector <std::string> results;
+  int instructionsSize = m.buildInstructions.size();
+
+
 //MOLECULE BUILDING//
 molecule preBuiltMolecule()
 {

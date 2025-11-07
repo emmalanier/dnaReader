@@ -134,6 +134,8 @@ molecule buildMolecule();
 molecule preBuiltMolecule();
 molecule buildFromScratch();
 
+std::vector <std::string> readInstructions(molecule);
+
 ///////////////
 //SQL METHODS//
 ///////////////
