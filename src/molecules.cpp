@@ -63,9 +63,14 @@ atom putFirstAtom(std::string symbol)
 
 }
 
-atom addAnAtomicBond(std::string symbol, std::string typeOfBond)
+void addAnAtomicBond(std::string typeOfBond, atom addedAtom, atom olderAtom)
 {
-
+  electronicBond newBond;
+  newBond.bondType = typeOfBond;
+  newBond.olderAtom = olderAtom;
+  newBond.addedAtom = addedAtom;
+  olderAtom.electronicBondsList.push_back(newBond);
+  addedAtom.electronicBondsList.push_back(newBond);
 }
 
 atom selectAnOtherAtom(std::string atomId)
@@ -77,6 +82,16 @@ molecule linkWith();
 molecule separateFrom();
 
 //MOLECULE BUILDING//
+molecule preBuiltMolecule()
+{
+
+}
+
+molecule buildFromScratch()
+{
+
+}
+
 molecule buildMolecule()
 {
   int methodChoice = 0;

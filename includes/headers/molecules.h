@@ -18,6 +18,17 @@
 #include <tuple>
 #include <cmath>
 
+////////////////////////////////////////////////////////
+//MODIFICATIONS TO DO ONCE THE CODE WILL BE WORKING : //
+//                                                    //
+//- Change the atom structure to a class              //
+//- Change the addAnAtomicBond method so that multiple//
+//  bonds can be created at once                      //
+//- Create methods to handle asymmetrical carbons,    //
+//  chirality etc                                     //
+//                                                    //
+////////////////////////////////////////////////////////
+
 //////////////
 //STRUCTURES//
 //////////////
@@ -56,12 +67,17 @@ struct electron
 
 struct electronicBond
 {
-  int numberOfElectronPairs;
-
   std::string bondType;
+
+  //VARIABLES FOR MORE COMPLEX PROBLEMS
+  int numberOfElectronPairs;
 
   std::vector <electron> groupA;
   std::vector <electron> groupB;
+
+  //VARIABLES FOR SIMPLIFIED MODELS
+  std::string olderAtomId;
+  std::string addedAtomId;
 };
 
 struct atom
@@ -108,7 +124,7 @@ atom createAtom(sqlite3*, std::string);
 
 //MOLECULE METHODS//
 atom putFirstAtom(std::string); //PF
-atom addAnAtomicBond(std::string, std::string, atom); //AAAB
+void addAnAtomicBond(std::string, atom, atom); //AAAB
 atom selectAnOtherAtom(std::string); //SAOA
 molecule linkWith(molecule); //LW
 molecule separateFrom(molecule); //SF
