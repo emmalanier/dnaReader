@@ -17,6 +17,7 @@
 #include <stdexcept>
 #include <tuple>
 #include <cmath>
+#include <cctype>
 
 ////////////////////////////////////////////////////////
 //MODIFICATIONS TO DO ONCE THE CODE WILL BE WORKING : //
@@ -135,6 +136,7 @@ molecule preBuiltMolecule();
 molecule buildFromScratch();
 
 std::vector <std::string> readInstructions(molecule);
+std::vector <std::string> readAAABInstruction(std::string);
 
 ///////////////
 //SQL METHODS//
