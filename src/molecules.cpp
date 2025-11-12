@@ -54,16 +54,17 @@ atom createAtom(std::string atomSymbol)
 }
 
 //MOLECULE METHODS//
-atom putFirstAtom(std::string symbol)
+atom putFirstAtom(std::string symbol, std::string atomId)//Inaccurate, needs modifications
 {
   atom results;
   results = createAtom(symbol);
   results.atomPosition = {0, 0, 0};
+  results.idInMolecule = atomId ;
   return results;
 
 }
 
-void addAnAtomicBond(std::string typeOfBond, atom addedAtom, atom olderAtom)
+electronicBond addAnAtomicBond(std::string typeOfBond, atom addedAtom, atom olderAtom)
 {
   electronicBond newBond;
   newBond.bondType = typeOfBond;
@@ -71,6 +72,8 @@ void addAnAtomicBond(std::string typeOfBond, atom addedAtom, atom olderAtom)
   newBond.addedAtomId = addedAtom.idInMolecule;
   olderAtom.electronicBondsList.push_back(newBond);
   addedAtom.electronicBondsList.push_back(newBond);
+
+  return electronicBond;
 }
 
 std::vector <std::string> readAAABInstruction(std::string instruction)
@@ -79,16 +82,16 @@ std::vector <std::string> readAAABInstruction(std::string instruction)
   
   int size = instruction.size();
   
-  std::string functionToCall = NULL;
+  std::string functionToCall = " ";
   bool doneWithFunctionToCall = false;
   
-  std::string typeOfBond;
+  std::string typeOfBond = " ";
   bool doneWithTypeOfBond = false;
   
-  std::string addedAtom;
+  std::string addedAtom = " ";
   bool doneWithAddedAtom = false;
   
-  std::string olderAtom;
+  std::string olderAtom = " ";
   bool doneWithOlderAtom = false;
 
   bool stepDone = false;
@@ -99,13 +102,17 @@ std::vector <std::string> readAAABInstruction(std::string instruction)
       
       while(stepDone != true)
         {
-          if(instruction[i]= ' ' || instruction[i]= ')')
+          if(instruction[i]= ' ')
             stepDone = true ;
             
           else if(isalpha(instruction[i]) == true && doneWithFunctionToCall == false)
             {
-              functionToCall.push_back(instruction[i]);
-    
+              if(functionToCall[0] == " ")
+                functionToCall[0] = instruction[i];
+
+              else
+                functionToCall.push_back(instruction[i]);
+
               if(instruction[i+1]=='(')
                 doneWithFunctionToCall==true;
               
@@ -114,7 +121,11 @@ std::vector <std::string> readAAABInstruction(std::string instruction)
             
           else if(isalpha(instruction[i]) == true && doneWithTypeOfBond == false)
             {
-              typeOfBond.push_back(instruction[i]);
+              if(typeOfBond[0] == " ")
+                typeOfBond[0] = instruction[i];
+
+              else
+                typeOfBond.push_back(instruction[i]);
     
               if(instruction[i+1]==',')
                 doneWithTypeOfBond==true;
@@ -124,7 +135,11 @@ std::vector <std::string> readAAABInstruction(std::string instruction)
     
           else if(isalpha(instruction[i]) == true && doneWithAddedAtom == false)
             {
-              typeOfBond.push_back(instruction[i]);
+              if(addedAtom[0] == " ")
+                addedAtom[0] = instruction[i];
+
+              else
+                addedAtom.push_back(instruction[i]);
     
               if(instruction[i+1]==',')
                 doneWithAddedAtom==true;
@@ -134,13 +149,20 @@ std::vector <std::string> readAAABInstruction(std::string instruction)
     
           else if(isalpha(instruction[i]) == true && doneWithOlderAtom == false)
             {
-              typeOfBond.push_back(instruction[i]);
+              if(olderAtom[0] == " ")
+                olderAtom[0] = instruction[i];
+
+              else
+                olderAtom.push_back(instruction[i]);
     
               if(instruction[i+1]==',')
                 doneWithOlderAtom==true;
               
               stepDone = true ;
             }
+
+          else if(instruction[i]= ')')
+            {
     
           else if(doneWithFunctionToCall==true && doneWithTypeOfBond == true && doneWithAddedAtom == true && doneWithOlderAtom == true)
             {
@@ -155,6 +177,8 @@ std::vector <std::string> readAAABInstruction(std::string instruction)
             }
           }
       }
+
+  results = {functionToCall, "(", typeOfBond, addedAtom, olderAtom, ")"} ;
 
   return results;
 }
@@ -202,16 +226,39 @@ std::vector <std::string> readInstructions(molecule m)//Must implement handling 
 
 
 //MOLECULE BUILDING//
-molecule preBuiltMolecule(std::vector <std::string> instructionsVec)
+std::vector <atom> preBuiltMolecule(std::vector <std::string> instructionsVec, std::string name)
 {
-  molecule results;
+  std::vector <atom> results;
   int numberOfInstructions = instructionsVec.size();
   std::string instruction;
+  std::vector <std::string> instructionElements;
+  std::string shortName = {name[0], name[1], name[2]);
+  int atomNumber = 0;
 
-  for(int i=0; i<numberOfInstructions; i++)
+  //var for the aaab method
+  std::string tob;
+  std::string aAtomId;
+  std::string oAtomId;
+
+  //Creation on first atom's Id :
+  std::string newId = {shortName, "_", to_string(atomNumber)};
+  results[0] = putFirstAtom(/*symbol*/, newId);
+
+  //PUT first atom func
+
+  for(int i=1; i<numberOfInstructions; i++)
     {
-      readAAABInstr
-      if()
+      instruction = instructionsVec[i];
+
+      instructionElements = readAAABInstruction(instructionsVec[i]);
+      
+      if(instructionElements[0] = "AAAB" || instructionElements[0] = "aaab")
+        {
+          tob = instructionElements[2];
+          aAtomId = instructionElements[3];
+          aAtomId = instructionElements[4];
+        }
+          
 
       else
         std::cerr << "Couldn't read instruction #" << i+1 << std::endl;
