@@ -377,6 +377,7 @@ molecule buildFromScratch()
 molecule buildMolecule()
 {
   int methodChoice = 0;
+  molecule tempMolecule;
   molecule results;
   std::vector <std::string> instructions;
   std::string moleculeName;
@@ -390,6 +391,20 @@ molecule buildMolecule()
 
   if(methodChoice==1)
     {
+      std::cout << "Enter the name of the molecule you want" << std::endl;
+      std::cin >> moleculeName;
+
+      sqlite3* database = nullptr;
+      int result = sqlite3_open("molecules.db", &database);
+
+      if (result != SQLITE_OK) 
+      {
+        std::cerr << "Error opening database: " << sqlite3_errmsg(database) << std::endl;
+      }
+
+      tempMolecule = getMoleculeFromDB(database, moleculeName);
+      instructions = readInstructions(tempMolecule);
+      
       results = preBuiltMolecule(instructions, moleculeName);
     }
 
@@ -462,13 +477,13 @@ elementInfo getElementInfoFromDB(sqlite3* database, const std::string& symbol)
 }
 
 
-molecule getMoleculeFromDB(sqlite3* database, const std::string& moleculeId)
+molecule getMoleculeFromDB(sqlite3* database, const std::string& moleculeName)
 {
 
 ////VARIABLE DECLARATIONS////
   molecule results;
   
-  const std::string sqlRequest = "SELECT moleculeId, moleculeName, buildInstructions FROM molecules WHERE moleculeId = ?;";
+  const std::string sqlRequest = "SELECT moleculeName, moleculeId, buildInstructions FROM molecules WHERE moleculeName = ?;";
 
   sqlite3_stmt* prepStatement = NULL;
 
@@ -481,7 +496,7 @@ molecule getMoleculeFromDB(sqlite3* database, const std::string& moleculeId)
   }
   //////////////////
 
-  int bindResult = sqlite3_bind_text(prepStatement, 1, moleculeId.c_str(), -1, SQLITE_STATIC);///Should work
+  int bindResult = sqlite3_bind_text(prepStatement, 1, moleculeName.c_str(), -1, SQLITE_STATIC);///Should work
 
   //Error handling//
   if (bindResult != SQLITE_OK) 
@@ -497,15 +512,15 @@ molecule getMoleculeFromDB(sqlite3* database, const std::string& moleculeId)
 ////ACTUAL METHOD////
   if (stepResult == SQLITE_ROW)
   {
-    results.moleculeId = reinterpret_cast<const char*>(sqlite3_column_text(prepStatement, 0));
-    results.moleculeName = reinterpret_cast<const char*>(sqlite3_column_text(prepStatement, 1));
+    results.moleculeName = reinterpret_cast<const char*>(sqlite3_column_text(prepStatement, 0));
+    results.moleculeId = reinterpret_cast<const char*>(sqlite3_column_text(prepStatement, 1));
     results.buildInstructions = reinterpret_cast<const char*>(sqlite3_column_int(prepStatement, 2));
   }
 
   else 
   {
     sqlite3_finalize(prepStatement);
-    throw std::runtime_error("Element not found in database: " + moleculeId);
+    throw std::runtime_error("Element not found in database: " + moleculeName);
   }
 
   sqlite3_finalize(prepStatement);
