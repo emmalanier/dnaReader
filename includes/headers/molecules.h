@@ -77,8 +77,8 @@ struct electronicBond
   std::vector <electron> groupB;
 
   //VARIABLES FOR SIMPLIFIED MODELS
-  std::string olderAtomId;
-  std::string addedAtomId;
+  std::string atomId_1;
+  std::string atomId_2;
 };
 
 struct atom
@@ -94,15 +94,16 @@ struct atom
 
   elementInfo infos;
   position atomPosition;
-
-  std::vector <electronicBond> electronicBondsList;
+  std::vector <electronicBond> bonds;
 };
 
 struct molecule
 {
   std::string moleculeName;
+
   std::vector <atom> atoms;
   std::tuple <std::string, int> numberOfAtoms;
+  std::vector <electronicBond> electronicBondsList;
 
   std::string moleculeId; //For SQL database
   std::string buildInstructions;
@@ -125,18 +126,21 @@ atom createAtom(sqlite3*, std::string);
 
 //MOLECULE METHODS//
 atom putFirstAtom(std::string); //PF
-void addAnAtomicBond(std::string, atom, atom); //AAAB
+electronicBond addAnAtomicBond(std::string, std::string, std::string); //AAAB
 atom selectAnOtherAtom(std::string); //SAOA
 molecule linkWith(molecule); //LW
 molecule separateFrom(molecule); //SF
 
 //MOLECULE BUILDING//
 molecule buildMolecule();
-molecule preBuiltMolecule();
+molecule preBuiltMolecule(std::vector <std::string>, std::string);
 molecule buildFromScratch();
 
 std::vector <std::string> readInstructions(molecule);
+
 std::vector <std::string> readAAABInstruction(std::string);
+
+int atomIndex(std::vector <atom>, std::string);
 
 ///////////////
 //SQL METHODS//

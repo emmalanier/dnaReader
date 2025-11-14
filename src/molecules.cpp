@@ -54,144 +54,44 @@ atom createAtom(std::string atomSymbol)
 }
 
 //MOLECULE METHODS//
-atom putFirstAtom(std::string symbol, std::string atomId)//Inaccurate, needs modifications
+atom putFirstAtom(std::vector <std::string> instructions)//Inaccurate, needs modifications
 {
   atom results;
+  std::string symbol;
+  bool start = false;
+
+  //Getting the symbol
+  for(int i=0; i<instructions[0].size(); i++)
+    {
+      if(instructions[0][i] == '(')
+        start = true;
+
+      if(instructions[0][i] != '(' && start == true && instructions[0][i] != ')')
+        symbol.push_back(instructions[0][i]);
+
+      if(instructions[0][i] != ')')
+        break;
+    }
+  
   results = createAtom(symbol);
   results.atomPosition = {0, 0, 0};
-  results.idInMolecule = atomId ;
+
   return results;
 
 }
 
-electronicBond addAnAtomicBond(std::string typeOfBond, atom addedAtom, atom olderAtom)
+electronicBond addAnAtomicBond(std::string typeOfBond, std::string aAtomId, std::string oAtomId)
 {
   electronicBond newBond;
+  
   newBond.bondType = typeOfBond;
-  newBond.olderAtomId = olderAtom.idInMolecule;
-  newBond.addedAtomId = addedAtom.idInMolecule;
-  olderAtom.electronicBondsList.push_back(newBond);
-  addedAtom.electronicBondsList.push_back(newBond);
+  newBond.atomId_1 = oAtomId;
+  newBond.atomId_2 = aAtomId;
 
-  return electronicBond;
+//With this method, the atom #1 is considered to be the old atom, and the #2 to be the one just added
+
+  return newBond;
 }
-
-std::vector <std::string> readAAABInstruction(std::string instruction)
-{
-  std::vector <std::string> results;
-  
-  int size = instruction.size();
-  
-  std::string functionToCall = " ";
-  bool doneWithFunctionToCall = false;
-  
-  std::string typeOfBond = " ";
-  bool doneWithTypeOfBond = false;
-  
-  std::string addedAtom = " ";
-  bool doneWithAddedAtom = false;
-  
-  std::string olderAtom = " ";
-  bool doneWithOlderAtom = false;
-
-  bool stepDone = false;
-
-  for(int i=0; i<size; i++)
-    {
-      stepDone = false ;
-      
-      while(stepDone != true)
-        {
-          if(instruction[i]= ' ')
-            stepDone = true ;
-            
-          else if(isalpha(instruction[i]) == true && doneWithFunctionToCall == false)
-            {
-              if(functionToCall[0] == " ")
-                functionToCall[0] = instruction[i];
-
-              else
-                functionToCall.push_back(instruction[i]);
-
-              if(instruction[i+1]=='(')
-                doneWithFunctionToCall==true;
-              
-              stepDone = true ;
-            }
-            
-          else if(isalpha(instruction[i]) == true && doneWithTypeOfBond == false)
-            {
-              if(typeOfBond[0] == " ")
-                typeOfBond[0] = instruction[i];
-
-              else
-                typeOfBond.push_back(instruction[i]);
-    
-              if(instruction[i+1]==',')
-                doneWithTypeOfBond==true;
-              
-              stepDone = true ;
-            }
-    
-          else if(isalpha(instruction[i]) == true && doneWithAddedAtom == false)
-            {
-              if(addedAtom[0] == " ")
-                addedAtom[0] = instruction[i];
-
-              else
-                addedAtom.push_back(instruction[i]);
-    
-              if(instruction[i+1]==',')
-                doneWithAddedAtom==true;
-              
-              stepDone = true ;
-            }
-    
-          else if(isalpha(instruction[i]) == true && doneWithOlderAtom == false)
-            {
-              if(olderAtom[0] == " ")
-                olderAtom[0] = instruction[i];
-
-              else
-                olderAtom.push_back(instruction[i]);
-    
-              if(instruction[i+1]==',')
-                doneWithOlderAtom==true;
-              
-              stepDone = true ;
-            }
-
-          else if(instruction[i]= ')')
-            {
-    
-          else if(doneWithFunctionToCall==true && doneWithTypeOfBond == true && doneWithAddedAtom == true && doneWithOlderAtom == true)
-            {
-              std::cout << "Build instructions read" << std::endl;
-              stepDone = true ;
-            }
-    
-          else
-            {
-              std::cerr << "Couldn't read build instructions" << std::endl;
-              stepDone = true ;
-            }
-          }
-      }
-
-  results = {functionToCall, "(", typeOfBond, addedAtom, olderAtom, ")"} ;
-
-  return results;
-}
-
-  
-
-atom selectAnOtherAtom(std::string atomId)
-{
-
-}
-
-molecule linkWith();
-molecule separateFrom();
 
 std::vector <std::string> readInstructions(molecule m)//Must implement handling of the ';' char
 {
@@ -225,14 +125,138 @@ std::vector <std::string> readInstructions(molecule m)//Must implement handling 
 }
 
 
+std::vector <std::string> readAAABInstruction(std::string instruction)
+{
+  std::vector <std::string> results;
+  
+  int size = instruction.size();
+  
+  std::string functionToCall = " ";
+  bool doneWithFunctionToCall = false;
+  
+  std::string typeOfBond = " ";
+  bool doneWithTypeOfBond = false;
+  
+  std::string addedAtom = " ";
+  bool doneWithAddedAtom = false;
+  
+  std::string olderAtom = " ";
+  bool doneWithOlderAtom = false;
+
+  bool stepDone = false;
+
+  for(int i=0; i<size; i++)
+    {
+      stepDone = false ;
+      
+      while(stepDone != true)
+        {
+          if(instruction[i]= ' ')
+            stepDone = true ;
+            
+          else if(isalpha(instruction[i]) == true && doneWithFunctionToCall == false)
+            {
+              if(functionToCall[0] == ' ')
+                functionToCall[0] = instruction[i];
+
+              else
+                functionToCall.push_back(instruction[i]);
+
+              if(instruction[i+1]=='(')
+                doneWithFunctionToCall==true;
+              
+              stepDone = true ;
+            }
+            
+          else if(isalpha(instruction[i]) == true && doneWithTypeOfBond == false)
+            {
+              if(typeOfBond == " ")
+                typeOfBond[0] = instruction[i];
+
+              else
+                typeOfBond.push_back(instruction[i]);
+    
+              if(instruction[i+1]==',')
+                doneWithTypeOfBond==true;
+              
+              stepDone = true ;
+            }
+    
+          else if(isalpha(instruction[i]) == true && doneWithAddedAtom == false)
+            {
+              if(addedAtom[0] == ' ')
+                addedAtom[0] = instruction[i];
+
+              else
+                addedAtom.push_back(instruction[i]);
+    
+              if(instruction[i+1]==',')
+                doneWithAddedAtom==true;
+              
+              stepDone = true ;
+            }
+    
+          else if(isalpha(instruction[i]) == true && doneWithOlderAtom == false)
+            {
+              if(olderAtom[0] == ' ')
+                olderAtom[0] = instruction[i];
+
+              else
+                olderAtom.push_back(instruction[i]);
+    
+              if(instruction[i+1]==',')
+                doneWithOlderAtom==true;
+              
+              stepDone = true ;
+            }
+
+//          else if(instruction[i]= ')')
+//            {
+    
+          else if(doneWithFunctionToCall==true && doneWithTypeOfBond == true && doneWithAddedAtom == true && doneWithOlderAtom == true)
+            {
+              std::cout << "Build instructions read" << std::endl;
+              stepDone = true ;
+            }
+    
+          else
+            {
+              std::cerr << "Couldn't read build instructions" << std::endl;
+              stepDone = true ;
+            }
+          }
+      }
+
+  results = {functionToCall, "(", typeOfBond, addedAtom, olderAtom, ")"} ;
+
+  return results;
+}
+
+  
+
+atom selectAnOtherAtom(std::string atomId)
+{
+
+}
+
+molecule linkWith();
+molecule separateFrom();
+
+
+
 //MOLECULE BUILDING//
-std::vector <atom> preBuiltMolecule(std::vector <std::string> instructionsVec, std::string name)
+molecule preBuiltMolecule(std::vector <std::string> instructionsVec, std::string name)
 {
   std::vector <atom> results;
+  molecule resultsMolecule;
   int numberOfInstructions = instructionsVec.size();
+
+  //Var for reading instructions
   std::string instruction;
   std::vector <std::string> instructionElements;
-  std::string shortName = {name[0], name[1], name[2]);
+
+  //Var for making Ids
+  std::string shortName = {name[0], name[1], name[2]};
   int atomNumber = 0;
 
   //var for the aaab method
@@ -240,30 +264,107 @@ std::vector <atom> preBuiltMolecule(std::vector <std::string> instructionsVec, s
   std::string aAtomId;
   std::string oAtomId;
 
+  int aAtomIndex;
+  int oAtomIndex;
+
+  bool oAtomExists = false;
+  bool aAtomExists = false;
+
   //Creation on first atom's Id :
-  std::string newId = {shortName, "_", to_string(atomNumber)};
-  results[0] = putFirstAtom(/*symbol*/, newId);
+  results[0] = putFirstAtom(instructionsVec);
+  std::string newId = shortName + "_" + std::to_string(0);
+  results[0].idInMolecule = newId;
 
-  //PUT first atom func
-
+  
+  //Adding other atoms
   for(int i=1; i<numberOfInstructions; i++)
     {
+      //Reading current instruction
       instruction = instructionsVec[i];
 
       instructionElements = readAAABInstruction(instructionsVec[i]);
+
       
-      if(instructionElements[0] = "AAAB" || instructionElements[0] = "aaab")
+      if(instructionElements[0] == "AAAB" || instructionElements[0] == "aaab")
         {
           tob = instructionElements[2];
           aAtomId = instructionElements[3];
-          aAtomId = instructionElements[4];
+          oAtomId = instructionElements[4];
         }
           
-
       else
         std::cerr << "Couldn't read instruction #" << i+1 << std::endl;
+      
+
+      if(atomIndex(results, oAtomId) >= 0)
+        {
+          oAtomExists = true;
+          oAtomIndex = atomIndex(results, oAtomId);
+        }
+        
+      else
+        throw std::runtime_error("Older atom does not exist, can't continue building");
+      
+
+      if(atomIndex(results, aAtomId) >= 0)
+        {
+          aAtomExists = true;
+          aAtomIndex = atomIndex(results, aAtomId);
+        }
+
+      //Different cases :
+      // 1 : older atom's Id is not found, program will stop (already implemented)
+      // 2 : older atom's Id exists, added atom's Id exists : an electronic bond will be added
+      // 3 : older atom's Id exists, added atom's Id does not exist : an atom + an electronic bound will be created
+      if(oAtomExists==true && aAtomExists==true)
+        {
+          //Creation of the bond
+          resultsMolecule.electronicBondsList.push_back(addAnAtomicBond(tob, aAtomId, oAtomId));
+
+          //Adding the bond to the older atom
+          results[oAtomIndex].bonds.push_back(resultsMolecule.electronicBondsList.back());
+
+          //Adding the bond to the added atom
+          results[oAtomIndex].bonds.push_back(resultsMolecule.electronicBondsList.back());
+          
+        }
+          
+      else if(oAtomExists==true && aAtomExists==false)
+        {
+          //Creation of the atom
+
+          //Adding the atom to the molecule list
+
+          //Copy and paste of the instructions in the previous if
+        }
+      
+      else
+        throw std::runtime_error("Something went wrong, can't continue building");
+
+      }
+
+
+  return resultsMolecule;
+}
+
+  
+int atomIndex(std::vector <atom> atomVec, std::string id)
+{
+  int results = -1;
+  int sizeOfVec = atomVec.size();
+  bool atomFound = false;
+
+  for(int i=0; i<sizeOfVec && atomFound == false ; i++)
+    {
+      if(atomVec[i].idInMolecule == id)
+        {
+          atomFound = true;
+          results = i;
+        }
+    }
 
   return results;
+
 }
 
 molecule buildFromScratch()
@@ -277,6 +378,8 @@ molecule buildMolecule()
 {
   int methodChoice = 0;
   molecule results;
+  std::vector <std::string> instructions;
+  std::string moleculeName;
   
   std::cout << "Select what applies : " << std::endl;
   std::cout << "1. I know exactly what molecule I want" << std::endl;
@@ -286,7 +389,9 @@ molecule buildMolecule()
   std::cin>>methodChoice;
 
   if(methodChoice==1)
-    results = preBuiltMolecule();
+    {
+      results = preBuiltMolecule(instructions, moleculeName);
+    }
 
   else if(methodChoice==2)
     results = buildFromScratch();
