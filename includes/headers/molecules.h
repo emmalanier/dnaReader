@@ -117,9 +117,7 @@ struct molecule
 ///////////////
 
 //MATHS//
-myVector distanceVector(electron, electron);
 
-double distanceValue(position, position);
 
 //ATOM CREATION//
 atom createAtom(sqlite3*, std::string);
