@@ -71,26 +71,26 @@ electronicBond addAnAtomicBond(std::string typeOfBond, std::string aAtomId, std:
 std::vector <std::string> readInstructions(molecule m)//Must implement handling of the ';' char
 {
   std::vector <std::string> results;
-  int instructionsSize = m.buildInstructions.size();
+  int instructionsSize = m.infos.buildInstructions.size();
   int numberOfInstructions ;
   bool newInstruction ;
 
   for(int i=0; i<instructionsSize; i++)
     {
-      if(m.buildInstructions[i] != ' ' && newInstruction == true)
+      if(m.infos.buildInstructions[i] != ' ' && newInstruction == true)
         {
-          results[numberOfInstructions].push_back(m.buildInstructions[i]) ;
+          results[numberOfInstructions].push_back(m.infos.buildInstructions[i]) ;
           newInstruction = false;
           numberOfInstructions += 1;
         }
 
-      else if(m.buildInstructions[i] != ' ' && newInstruction == false)
+      else if(m.infos.buildInstructions[i] != ' ' && newInstruction == false)
         {
-          results[numberOfInstructions].push_back(m.buildInstructions[i]);
+          results[numberOfInstructions].push_back(m.infos.buildInstructions[i]);
           newInstruction == false;
         }
 
-      else if(m.buildInstructions[i] == ' ')
+      else if(m.infos.buildInstructions[i] == ' ')
         newInstruction == true;
 
       else
@@ -246,11 +246,13 @@ molecule preBuiltMolecule(std::vector <std::string> instructionsVec, std::string
   bool oAtomExists = false;
   bool aAtomExists = false;
 
-  std::string moleculesFileName = "molecules.db";
-  std::string elementsFileName = "elements.db";
+  const std::string moleculesFileName = "molecules.db";
+  const std::string elementsFileName = "elements.db";
 
-  sqlite3* pointerForElements = openSQLDataBase("elements.db");
-  sqlite3* pointerForMolecules = openSQLDataBase("molecules.db");
+  sqlite3* pointerForElements = openSQLDataBase(&elementsFileName[0]);
+  sqlite3* pointerForMolecules = openSQLDataBase(&moleculesFileName[0]);
+
+  std::cout << "Ok" << std::endl;
 
   //Creation on first atom's Id :
   resultsMolecule.atoms[0] = putFirstAtom(instructionsVec);
@@ -401,7 +403,7 @@ molecule buildMolecule()
         std::cerr << "Error opening database: " << sqlite3_errmsg(database) << std::endl;
       }
 
-      tempMolecule = getMoleculeFromDB(database, moleculeName);
+      tempMolecule.infos = getMoleculeFromDB(database, moleculeName);
       instructions = readInstructions(tempMolecule);
       
       results = preBuiltMolecule(instructions, moleculeName);
@@ -419,7 +421,7 @@ molecule buildMolecule()
 //MOLECULE OUTPUT//
 void outputMolecule(molecule m)
 {
-  std::cout << "Molecule name : " << m.moleculeName <<std::endl;
+  std::cout << "Molecule name : " << m.infos.moleculeName <<std::endl;
 
   std::cout << "Atoms list : " << std::endl;
 

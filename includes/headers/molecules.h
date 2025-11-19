@@ -44,6 +44,12 @@ struct elementInfo
   double electronegativity;
 };
 
+struct moleculeInfo
+{
+  std::string moleculeName;
+  std::string moleculeId; //For SQL database
+  std::string buildInstructions;
+};
 
 struct position
 {
@@ -99,14 +105,10 @@ struct atom
 
 struct molecule
 {
-  std::string moleculeName;
-
+  moleculeInfo infos;
   std::vector <atom> atoms;
   std::tuple <std::string, int> numberOfAtoms;
   std::vector <electronicBond> electronicBondsList;
-
-  std::string moleculeId; //For SQL database
-  std::string buildInstructions;
 
 };
 
@@ -147,7 +149,7 @@ std::string createAtomId(std::string, atom, int);
 ///////////////
 
 elementInfo getElementInfoFromDB(sqlite3*, const std::string&);
-molecule getMoleculeFromDB(sqlite3*, const std::string&);
+moleculeInfo getMoleculeFromDB(sqlite3*, const std::string&);
 sqlite3* openSQLDataBase(const char*);
 
 #endif //MOLECULES_H

@@ -77,11 +77,11 @@ elementInfo getElementInfoFromDB(sqlite3* database, const std::string& symbol)
 }
 
 
-molecule getMoleculeFromDB(sqlite3* database, const std::string& moleculeName)
+moleculeInfo getMoleculeFromDB(sqlite3* database, const std::string& moleculeName)
 {
 
 ////VARIABLE DECLARATIONS////
-  molecule results;
+  moleculeInfo results;
   
   const std::string sqlRequest = "SELECT moleculeName, moleculeId, buildInstructions FROM molecules WHERE moleculeName = ?;";
 
@@ -92,7 +92,8 @@ molecule getMoleculeFromDB(sqlite3* database, const std::string& moleculeName)
   //Error handling//
   if (prepResult != SQLITE_OK) 
   {
-    throw std::runtime_error("Failed to prepare SQL statement for element query");
+    std::string err = sqlite3_errmsg(database);
+    throw std::runtime_error("Failed to prepare SQL statement for molecule query" + err);
   }
   //////////////////
 
@@ -114,7 +115,7 @@ molecule getMoleculeFromDB(sqlite3* database, const std::string& moleculeName)
   {
     results.moleculeName = reinterpret_cast<const char*>(sqlite3_column_text(prepStatement, 0));
     results.moleculeId = reinterpret_cast<const char*>(sqlite3_column_text(prepStatement, 1));
-    results.buildInstructions = reinterpret_cast<const char*>(sqlite3_column_int(prepStatement, 2));
+    results.buildInstructions = reinterpret_cast<const char*>(sqlite3_column_text(prepStatement, 2));
   }
 
   else 
