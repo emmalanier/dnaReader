@@ -116,8 +116,6 @@ struct molecule
 //C++ METHODS//
 ///////////////
 
-//MATHS//
-
 
 //ATOM CREATION//
 atom createAtom(sqlite3*, std::string);
@@ -150,6 +148,6 @@ std::string createAtomId(std::string, atom, int);
 
 elementInfo getElementInfoFromDB(sqlite3*, const std::string&);
 molecule getMoleculeFromDB(sqlite3*, const std::string&);
-
+sqlite3* openSQLDataBase(const char*);
 
 #endif //MOLECULES_H
