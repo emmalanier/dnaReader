@@ -246,31 +246,16 @@ molecule preBuiltMolecule(std::vector <std::string> instructionsVec, std::string
   bool oAtomExists = false;
   bool aAtomExists = false;
 
+  std::string moleculesFileName = "molecules.db";
+  std::string elementsFileName = "elements.db";
+
+  sqlite3* pointerForElements = openSQLDataBase("elements.db");
+  sqlite3* pointerForMolecules = openSQLDataBase("molecules.db");
+
   //Creation on first atom's Id :
   resultsMolecule.atoms[0] = putFirstAtom(instructionsVec);
   std::string newId = shortName + "_" + resultsMolecule.atoms[0].infos.elementSymbol + "_" + std::to_string(001);
   resultsMolecule.atoms[0].idInMolecule = newId;
-  sqlite3* databaseMolecules = nullptr;
-
-  int resultMolecule = sqlite3_open("molecules.db", &databaseMolecules);  // Opens the file
-
-  if (resultMolecule != SQLITE_OK) 
-  {
-    std::cerr << "Error opening database: " << sqlite3_errmsg(databaseMolecules) << std::endl;
-  }
-
-  std::cout << "Database opened successfully!" << std::endl;
-
-  sqlite3* databaseElements = nullptr;
-
-  int resultAtom = sqlite3_open("elements.db", &databaseElements);  // Opens the file
-
-  if (resultAtom != SQLITE_OK) 
-  {
-    std::cerr << "Error opening database: " << sqlite3_errmsg(databaseElements) << std::endl;
-  }
-
-  std::cout << "Database opened successfully!" << std::endl;
 
   
   //Adding other atoms
