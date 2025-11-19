@@ -49,7 +49,7 @@ int main()
 
   writeAminoAcidsInFile(outputs);*////
   
-  sqlite3* database = nullptr;
+/*  sqlite3* database = nullptr;
   int result = sqlite3_open("elements.db", &database);  // Opens the file
 
   if (result != SQLITE_OK) 
@@ -63,7 +63,11 @@ std::cout << "Database opened successfully!" << std::endl;
   atom oxygenAtom;
   oxygenAtom.infos = getElementInfoFromDB( database ,"O");
 
-  std::cout << "Atom selected : " <<oxygenAtom.infos.elementName<< " ("<<oxygenAtom.infos.elementSymbol<<") "<<std::endl;
+  std::cout << "Atom selected : " <<oxygenAtom.infos.elementName<< " ("<<oxygenAtom.infos.elementSymbol<<") "<<std::endl;*/
+
+  molecule molecule1 = buildMolecule();
+
+  outputMolecule(molecule1);
 
   
   

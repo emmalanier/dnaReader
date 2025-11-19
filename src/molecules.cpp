@@ -247,7 +247,7 @@ molecule separateFrom();
 //MOLECULE BUILDING//
 molecule preBuiltMolecule(std::vector <std::string> instructionsVec, std::string name)
 {
-  std::vector <atom> results;
+  std::vector <atom> results;//Needs to be "linked" with the molecule
   molecule resultsMolecule;
   int numberOfInstructions = instructionsVec.size();
 
@@ -262,6 +262,7 @@ molecule preBuiltMolecule(std::vector <std::string> instructionsVec, std::string
   //var for the aaab method
   std::string tob;
   std::string aAtomId;
+  std::string aAtomSymbol;
   std::string oAtomId;
 
   int aAtomIndex;
@@ -271,9 +272,30 @@ molecule preBuiltMolecule(std::vector <std::string> instructionsVec, std::string
   bool aAtomExists = false;
 
   //Creation on first atom's Id :
-  results[0] = putFirstAtom(instructionsVec);
-  std::string newId = shortName + "_" + std::to_string(0);
-  results[0].idInMolecule = newId;
+  resultsMolecule.atoms[0] = putFirstAtom(instructionsVec);
+  std::string newId = shortName + "_" + resultsMolecule.atoms[0].infos.elementSymbol + "_" + std::to_string(001);
+  resultsMolecule.atoms[0].idInMolecule = newId;
+  sqlite3* databaseMolecules = nullptr;
+
+  int resultMolecule = sqlite3_open("molecules.db", &databaseMolecules);  // Opens the file
+
+  if (resultMolecule != SQLITE_OK) 
+  {
+    std::cerr << "Error opening database: " << sqlite3_errmsg(databaseMolecules) << std::endl;
+  }
+
+  std::cout << "Database opened successfully!" << std::endl;
+
+  sqlite3* databaseElements = nullptr;
+
+  int resultAtom = sqlite3_open("elements.db", &databaseElements);  // Opens the file
+
+  if (resultAtom != SQLITE_OK) 
+  {
+    std::cerr << "Error opening database: " << sqlite3_errmsg(databaseElements) << std::endl;
+  }
+
+  std::cout << "Database opened successfully!" << std::endl;
 
   
   //Adding other atoms
@@ -299,17 +321,17 @@ molecule preBuiltMolecule(std::vector <std::string> instructionsVec, std::string
       if(atomIndex(results, oAtomId) >= 0)
         {
           oAtomExists = true;
-          oAtomIndex = atomIndex(results, oAtomId);
+          oAtomIndex = atomIndex(resultsMolecule.atoms, oAtomId);
         }
         
       else
         throw std::runtime_error("Older atom does not exist, can't continue building");
       
 
-      if(atomIndex(results, aAtomId) >= 0)
+      if(atomIndex(resultsMolecule.atoms, aAtomId) >= 0)
         {
           aAtomExists = true;
-          aAtomIndex = atomIndex(results, aAtomId);
+          aAtomIndex = atomIndex(resultsMolecule.atoms, aAtomId);
         }
 
       //Different cases :
@@ -322,20 +344,34 @@ molecule preBuiltMolecule(std::vector <std::string> instructionsVec, std::string
           resultsMolecule.electronicBondsList.push_back(addAnAtomicBond(tob, aAtomId, oAtomId));
 
           //Adding the bond to the older atom
-          results[oAtomIndex].bonds.push_back(resultsMolecule.electronicBondsList.back());
+          resultsMolecule.atoms[oAtomIndex].bonds.push_back(resultsMolecule.electronicBondsList.back());
 
           //Adding the bond to the added atom
-          results[oAtomIndex].bonds.push_back(resultsMolecule.electronicBondsList.back());
+          resultsMolecule.atoms[oAtomIndex].bonds.push_back(resultsMolecule.electronicBondsList.back());
           
         }
           
       else if(oAtomExists==true && aAtomExists==false)
         {
           //Creation of the atom
-
-          //Adding the atom to the molecule list
+          for(int i=0; i<aAtomId.size(); i++)
+            {
+              if(isalpha(aAtomId[i])==true)
+                aAtomSymbol.push_back(aAtomId[i]);
+              else
+                break;
+            }
+          resultsMolecule.atoms.push_back(createAtom(aAtomSymbol));
 
           //Copy and paste of the instructions in the previous if
+          //Creation of the bond
+          resultsMolecule.electronicBondsList.push_back(addAnAtomicBond(tob, aAtomId, oAtomId));
+
+          //Adding the bond to the older atom
+          resultsMolecule.atoms[oAtomIndex].bonds.push_back(resultsMolecule.electronicBondsList.back());
+
+          //Adding the bond to the added atom
+          resultsMolecule.atoms[oAtomIndex].bonds.push_back(resultsMolecule.electronicBondsList.back());
         }
       
       else
@@ -347,6 +383,9 @@ molecule preBuiltMolecule(std::vector <std::string> instructionsVec, std::string
   return resultsMolecule;
 }
 
+std::string createAtomId(std::string moleculeName, atom a, int n)
+{
+}
   
 int atomIndex(std::vector <atom> atomVec, std::string id)
 {
@@ -416,6 +455,31 @@ molecule buildMolecule()
 
   return results;
 }
+
+//MOLECULE OUTPUT//
+void outputMolecule(molecule m)
+{
+  std::cout << "Molecule name : " << m.moleculeName <<std::endl;
+
+  std::cout << "Atoms list : " << std::endl;
+
+  for(int i=0; i<m.atoms.size(); i++)
+    {
+      std::cout << m.atoms[i].infos.elementName << ", " << m.atoms[i].idInMolecule << std::endl;
+    }
+
+  std::cout<< " "<< std::endl;
+
+  std::cout << "Electronic bonds list : " << std::endl;
+
+  for(int i=0; i<m.electronicBondsList.size(); i++)
+    {
+      std::cout << m.electronicBondsList[i].atomId_1 << ", " << m.electronicBondsList[i].atomId_1 << std::endl;
+    }  
+
+  std::cout << "Done" << std::endl;
+}
+
 
 ///////////////
 //SQL METHODS//

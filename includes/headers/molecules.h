@@ -141,6 +141,10 @@ std::vector <std::string> readInstructions(molecule);
 std::vector <std::string> readAAABInstruction(std::string);
 
 int atomIndex(std::vector <atom>, std::string);
+std::string findCarbonType();
+
+void outputMolecule(molecule);
+std::string createAtomId(std::string, atom, int);
 
 ///////////////
 //SQL METHODS//
