@@ -18,6 +18,7 @@
 #include <tuple>
 #include <cmath>
 #include <cctype>
+#include <algorithm>
 
 ////////////////////////////////////////////////////////
 //MODIFICATIONS TO DO ONCE THE CODE WILL BE WORKING : //

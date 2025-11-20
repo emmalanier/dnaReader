@@ -65,9 +65,12 @@ std::cout << "Database opened successfully!" << std::endl;
 
   std::cout << "Atom selected : " <<oxygenAtom.infos.elementName<< " ("<<oxygenAtom.infos.elementSymbol<<") "<<std::endl;*/
 
-  molecule molecule1 = buildMolecule();
+  sqlite3* database = openSQLDataBase("molecules.db");
+  molecule molecule1 ;
+  molecule1.infos=getMoleculeFromDB(database, "Serine");
 
-  outputMolecule(molecule1);
+  molecule molecule2 = buildMolecule();
+  outputMolecule(molecule2);
 
   
   

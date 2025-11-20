@@ -71,31 +71,59 @@ electronicBond addAnAtomicBond(std::string typeOfBond, std::string aAtomId, std:
 std::vector <std::string> readInstructions(molecule m)//Must implement handling of the ';' char
 {
   std::vector <std::string> results;
-  int instructionsSize = m.infos.buildInstructions.size();
-  int numberOfInstructions ;
-  bool newInstruction ;
+  int instructionsSize = m.infos.buildInstructions.length();
+  int numberOfInstructions = std::count(m.infos.buildInstructions.begin(), m.infos.buildInstructions.end(), ';') + 1 ;
+  results.resize(numberOfInstructions);
+  
+  //bool newInstruction = true ;
+  int instructionIndex = 0;
+  std::string currentInstruction;
+
+  char c;
+  
+  std::cout<<m.infos.buildInstructions<<std::endl;
 
   for(int i=0; i<instructionsSize; i++)
     {
-      if(m.infos.buildInstructions[i] != ' ' && newInstruction == true)
+      c = m.infos.buildInstructions[i];
+      
+      if(!isspace(static_cast<unsigned char>(c)) && c != ';'/* && newInstruction == true*/)
         {
-          results[numberOfInstructions].push_back(m.infos.buildInstructions[i]) ;
-          newInstruction = false;
-          numberOfInstructions += 1;
+          currentInstruction.push_back(c);
+          //newInstruction = false;
+        }
+        
+      //else if(isspace(c) == false && c != ';' /*&& newInstruction == false*/)
+      //  {
+       //   currentInstruction.push_back(c);
+          //newInstruction = false;
+       // }
+
+      else if(c == ';')
+        {
+          //newInstruction = true;
+          results[instructionIndex] = currentInstruction;
+          currentInstruction.clear();
+          instructionIndex += 1;
         }
 
-      else if(m.infos.buildInstructions[i] != ' ' && newInstruction == false)
-        {
-          results[numberOfInstructions].push_back(m.infos.buildInstructions[i]);
-          newInstruction == false;
-        }
+      else if(isspace(static_cast<unsigned char>(c)))
+        continue;
 
-      else if(m.infos.buildInstructions[i] == ' ')
-        newInstruction == true;
+      //else if(i==instructionsSize)
+       // results[instructionIndex] = currentInstruction;
 
       else
         std::cerr << "Something went wrong when reading instructions" << std::endl;
       }
+    
+  
+  if (!currentInstruction.empty() && instructionIndex < numberOfInstructions)
+    {
+        results[instructionIndex] = currentInstruction;
+    }
+
+  return results;
   
 }
 
@@ -222,9 +250,8 @@ molecule separateFrom();
 //MOLECULE BUILDING//
 molecule preBuiltMolecule(std::vector <std::string> instructionsVec, std::string name)
 {
-  std::vector <atom> results;//Needs to be "linked" with the molecule
   molecule resultsMolecule;
-  int numberOfInstructions = instructionsVec.size();
+  int numberOfInstructions = instructionsVec.size(); 
 
   //Var for reading instructions
   std::string instruction;
@@ -232,7 +259,7 @@ molecule preBuiltMolecule(std::vector <std::string> instructionsVec, std::string
 
   //Var for making Ids
   std::string shortName = {name[0], name[1], name[2]};
-  int atomNumber = 0;
+  int atomNumber = 0; 
 
   //var for the aaab method
   std::string tob;
@@ -246,16 +273,14 @@ molecule preBuiltMolecule(std::vector <std::string> instructionsVec, std::string
   bool oAtomExists = false;
   bool aAtomExists = false;
 
-  const std::string moleculesFileName = "molecules.db";
-  const std::string elementsFileName = "elements.db";
 
-  sqlite3* pointerForElements = openSQLDataBase(&elementsFileName[0]);
-  sqlite3* pointerForMolecules = openSQLDataBase(&moleculesFileName[0]);
+  sqlite3* pointerForElements = openSQLDataBase("elements.db");
+  sqlite3* pointerForMolecules = openSQLDataBase("molecules.db");
 
   std::cout << "Ok" << std::endl;
 
-  //Creation on first atom's Id :
-  resultsMolecule.atoms[0] = putFirstAtom(instructionsVec);
+  //Creation on first atom's Id : 
+  resultsMolecule.atoms.push_back(putFirstAtom(instructionsVec));
   std::string newId = shortName + "_" + resultsMolecule.atoms[0].infos.elementSymbol + "_" + std::to_string(001);
   resultsMolecule.atoms[0].idInMolecule = newId;
 
@@ -280,14 +305,14 @@ molecule preBuiltMolecule(std::vector <std::string> instructionsVec, std::string
         std::cerr << "Couldn't read instruction #" << i+1 << std::endl;
       
 
-      if(atomIndex(results, oAtomId) >= 0)
+      if(atomIndex(resultsMolecule.atoms, oAtomId) >= 0)
         {
           oAtomExists = true;
           oAtomIndex = atomIndex(resultsMolecule.atoms, oAtomId);
         }
         
       else
-        throw std::runtime_error("Older atom does not exist, can't continue building");
+        throw std::runtime_error("Older atom does not exist, can't continue building"); 
       
 
       if(atomIndex(resultsMolecule.atoms, aAtomId) >= 0)
@@ -306,10 +331,10 @@ molecule preBuiltMolecule(std::vector <std::string> instructionsVec, std::string
           resultsMolecule.electronicBondsList.push_back(addAnAtomicBond(tob, aAtomId, oAtomId));
 
           //Adding the bond to the older atom
-          resultsMolecule.atoms[oAtomIndex].bonds.push_back(resultsMolecule.electronicBondsList.back());
+          resultsMolecule.atoms[oAtomIndex].bonds.push_back(resultsMolecule.electronicBondsList.back()); 
 
           //Adding the bond to the added atom
-          resultsMolecule.atoms[oAtomIndex].bonds.push_back(resultsMolecule.electronicBondsList.back());
+          resultsMolecule.atoms[aAtomIndex].bonds.push_back(resultsMolecule.electronicBondsList.back());
           
         }
           
@@ -340,7 +365,6 @@ molecule preBuiltMolecule(std::vector <std::string> instructionsVec, std::string
         throw std::runtime_error("Something went wrong, can't continue building");
 
       }
-
 
   return resultsMolecule;
 }
@@ -373,7 +397,7 @@ molecule buildFromScratch()
   molecule results;
 
   return results;
-}
+} 
 
 molecule buildMolecule()
 {
@@ -414,7 +438,7 @@ molecule buildMolecule()
 
   else
     std::cerr << "Input is not valid" << std::endl;
-
+ 
   return results;
 }
 
