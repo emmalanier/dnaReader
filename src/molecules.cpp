@@ -68,14 +68,13 @@ electronicBond addAnAtomicBond(std::string typeOfBond, std::string aAtomId, std:
   return newBond;
 }
 
-std::vector <std::string> readInstructions(molecule m)//Must implement handling of the ';' char
+std::vector <std::string> readInstructions(molecule m)
 {
   std::vector <std::string> results;
   int instructionsSize = m.infos.buildInstructions.length();
   int numberOfInstructions = std::count(m.infos.buildInstructions.begin(), m.infos.buildInstructions.end(), ';') + 1 ;
   results.resize(numberOfInstructions);
   
-  //bool newInstruction = true ;
   int instructionIndex = 0;
   std::string currentInstruction;
 
@@ -87,21 +86,13 @@ std::vector <std::string> readInstructions(molecule m)//Must implement handling 
     {
       c = m.infos.buildInstructions[i];
       
-      if(!isspace(static_cast<unsigned char>(c)) && c != ';'/* && newInstruction == true*/)
+      if(!isspace(static_cast<unsigned char>(c)) && c != ';')
         {
           currentInstruction.push_back(c);
-          //newInstruction = false;
         }
-        
-      //else if(isspace(c) == false && c != ';' /*&& newInstruction == false*/)
-      //  {
-       //   currentInstruction.push_back(c);
-          //newInstruction = false;
-       // }
 
       else if(c == ';')
         {
-          //newInstruction = true;
           results[instructionIndex] = currentInstruction;
           currentInstruction.clear();
           instructionIndex += 1;
@@ -110,19 +101,18 @@ std::vector <std::string> readInstructions(molecule m)//Must implement handling 
       else if(isspace(static_cast<unsigned char>(c)))
         continue;
 
-      //else if(i==instructionsSize)
-       // results[instructionIndex] = currentInstruction;
 
       else
         std::cerr << "Something went wrong when reading instructions" << std::endl;
       }
+  
     
   
   if (!currentInstruction.empty() && instructionIndex < numberOfInstructions)
     {
         results[instructionIndex] = currentInstruction;
     }
-
+  
   return results;
   
 }
@@ -134,16 +124,16 @@ std::vector <std::string> readAAABInstruction(std::string instruction)
   
   int size = instruction.size();
   
-  std::string functionToCall = " ";
+  std::string functionToCall;
   bool doneWithFunctionToCall = false;
   
-  std::string typeOfBond = " ";
+  std::string typeOfBond;
   bool doneWithTypeOfBond = false;
   
-  std::string addedAtom = " ";
+  std::string addedAtom;
   bool doneWithAddedAtom = false;
   
-  std::string olderAtom = " ";
+  std::string olderAtom;
   bool doneWithOlderAtom = false;
 
   bool stepDone = false;
@@ -154,67 +144,48 @@ std::vector <std::string> readAAABInstruction(std::string instruction)
       
       while(stepDone != true)
         {
-          if(instruction[i]= ' ')
+          if(instruction[i]== ' ')
             stepDone = true ;
             
           else if(isalpha(instruction[i]) == true && doneWithFunctionToCall == false)
             {
-              if(functionToCall[0] == ' ')
-                functionToCall[0] = instruction[i];
-
-              else
                 functionToCall.push_back(instruction[i]);
 
               if(instruction[i+1]=='(')
-                doneWithFunctionToCall==true;
+                doneWithFunctionToCall=true;
               
               stepDone = true ;
             }
             
           else if(isalpha(instruction[i]) == true && doneWithTypeOfBond == false)
             {
-              if(typeOfBond == " ")
-                typeOfBond[0] = instruction[i];
-
-              else
                 typeOfBond.push_back(instruction[i]);
     
               if(instruction[i+1]==',')
-                doneWithTypeOfBond==true;
+                doneWithTypeOfBond=true;
               
               stepDone = true ;
             }
     
           else if(isalpha(instruction[i]) == true && doneWithAddedAtom == false)
             {
-              if(addedAtom[0] == ' ')
-                addedAtom[0] = instruction[i];
-
-              else
                 addedAtom.push_back(instruction[i]);
     
               if(instruction[i+1]==',')
-                doneWithAddedAtom==true;
+                doneWithAddedAtom=true;
               
               stepDone = true ;
             }
     
           else if(isalpha(instruction[i]) == true && doneWithOlderAtom == false)
             {
-              if(olderAtom[0] == ' ')
-                olderAtom[0] = instruction[i];
-
-              else
                 olderAtom.push_back(instruction[i]);
     
               if(instruction[i+1]==',')
-                doneWithOlderAtom==true;
+                doneWithOlderAtom=true;
               
               stepDone = true ;
             }
-
-//          else if(instruction[i]= ')')
-//            {
     
           else if(doneWithFunctionToCall==true && doneWithTypeOfBond == true && doneWithAddedAtom == true && doneWithOlderAtom == true)
             {
@@ -440,6 +411,16 @@ molecule buildMolecule()
     std::cerr << "Input is not valid" << std::endl;
  
   return results;
+}
+
+bool isAAABChar(char c)
+{
+  bool results = false;
+
+  if(isalnum(c) == true || c=='_')
+    results = true;
+
+  return results
 }
 
 //MOLECULE OUTPUT//

@@ -145,6 +145,8 @@ std::string findCarbonType();
 void outputMolecule(molecule);
 std::string createAtomId(std::string, atom, int);
 
+bool isAAABChar(char);
+
 ///////////////
 //SQL METHODS//
 ///////////////
