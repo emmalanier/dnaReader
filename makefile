@@ -34,8 +34,16 @@ all: ${DB} ${EXE}
 	${GPP} -c -o $@ $<
 
 # De la table de données
-${DB}: ${SQL}
-	sqlite3 $@ < $(filter %.sql,$(^))
+#${DB}: ${SQL}
+#	sqlite3 $@ < $(filter %.sql,$(^))
+elements.db: includes/databases/elements.sql
+	sqlite3 $@ < $<
+
+molecules.db: includes/databases/molecules.sql
+	sqlite3 $@ < $<
+
+aminoAcids.db: includes/databases/aminoAcids.sql
+	sqlite3 $@ < $<
 
 #######################################################################################
 
