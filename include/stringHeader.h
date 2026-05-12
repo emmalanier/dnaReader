@@ -33,6 +33,6 @@ class myString
 
 };
 
-#include "./templates/templates.tpp"
+#include "./templates.tpp"
     
 #endif//STRINGHEADER_H
