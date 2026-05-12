@@ -138,18 +138,21 @@ std::vector <std::string> readAAABInstruction(std::string instruction)
 
   bool stepDone = false;
 
+  char c;
+
   for(int i=0; i<size; i++)
     {
       stepDone = false ;
+      c = instruction[i];
       
       while(stepDone != true)
         {
-          if(instruction[i]== ' ')
+          if(c == ' ')
             stepDone = true ;
             
-          else if(isalpha(instruction[i]) == true && doneWithFunctionToCall == false)
+          else if(isAAABChar(c) == true && doneWithFunctionToCall == false)
             {
-                functionToCall.push_back(instruction[i]);
+              functionToCall.push_back(c);
 
               if(instruction[i+1]=='(')
                 doneWithFunctionToCall=true;
@@ -157,9 +160,9 @@ std::vector <std::string> readAAABInstruction(std::string instruction)
               stepDone = true ;
             }
             
-          else if(isalpha(instruction[i]) == true && doneWithTypeOfBond == false)
+          else if(isAAABChar(c) == true && doneWithTypeOfBond == false)
             {
-                typeOfBond.push_back(instruction[i]);
+              typeOfBond.push_back(c);
     
               if(instruction[i+1]==',')
                 doneWithTypeOfBond=true;
@@ -167,9 +170,9 @@ std::vector <std::string> readAAABInstruction(std::string instruction)
               stepDone = true ;
             }
     
-          else if(isalpha(instruction[i]) == true && doneWithAddedAtom == false)
+          else if(isAAABChar(c) == true && doneWithAddedAtom == false)
             {
-                addedAtom.push_back(instruction[i]);
+              addedAtom.push_back(c);
     
               if(instruction[i+1]==',')
                 doneWithAddedAtom=true;
@@ -177,9 +180,9 @@ std::vector <std::string> readAAABInstruction(std::string instruction)
               stepDone = true ;
             }
     
-          else if(isalpha(instruction[i]) == true && doneWithOlderAtom == false)
+          else if(isAAABChar(c) == true && doneWithOlderAtom == false)
             {
-                olderAtom.push_back(instruction[i]);
+              olderAtom.push_back(c);
     
               if(instruction[i+1]==',')
                 doneWithOlderAtom=true;
@@ -420,7 +423,7 @@ bool isAAABChar(char c)
   if(isalnum(c) == true || c=='_')
     results = true;
 
-  return results
+  return results ;
 }
 
 //MOLECULE OUTPUT//

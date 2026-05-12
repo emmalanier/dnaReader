@@ -2,11 +2,9 @@
 /build/
 bin/
 obj/
+/output/
 
 # Compiled files
 *.o
 *.exe
 *.out
-
-# Other files
-*.txt
