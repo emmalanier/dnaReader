@@ -5,23 +5,22 @@
 CREATE TABLE if NOT EXISTS molecules(
 
   moleculeId TEXT PRIMARY KEY,
-  component_local_id TEXT,
-  component_id TEXT,
-  atom_local_id TEXT,
-  atom_id TEXT,
-  FOREIGN KEY (atom_id) REFERENCES elements(elementSymbol)
-  FOREIGN KEY (component_id) REFERENCES molecules(moleculeId)
+  components TEXT,
 
 );
 
+-- Functional groups --
+
+INSERT INTO molecules VALUES ('amino_group','(N_1 ; N) - (C_2 ; C) - (C_3 ; C)');
+
+INSERT INTO molecules VALUES ('carboxylic_group','(C_1 ; C) - (O_2 ; O) - (O_3 ; O) - (H_4 ; H)');
+
+INSERT INTO molecules VALUES ('methylene_group', '(C_1 ; C) - (H_2 ; H) - (H_3 ; H)');
+
 -- For optimization purposes, 'aa0' refers to the "head" of amino acids (ie amino group, carboxylic group, and alpha carbon) --
 -- In this file, the amino acids molecules are considered to be in their standard chemical structures --
-INSERT INTO molecules VALUES ('amino_group','NULL','NULL', 'N_1', 'N');
-INSERT INTO molecules VALUES ('amino_group','NULL','NULL', 'C_2', 'C');
-INSERT INTO molecules VALUES ('amino_group','NULL','NULL', 'C_3', 'C');
 
-INSERT INTO molecules VALUES ('aa0','NULL','NULL', 'alpha_C_1', 'C');
-INSERT INTO molecules VALUES ('aa0','NULL','NULL', 'NULL', 'NULL');
+INSERT INTO molecules VALUES ('aa0','(alpha_C_1 ; C) - (a_g_1 ; amino_group) - (c_g_1 ; carboxylic_group)');
 
 INSERT INTO molecules VALUES ('aa1','','', '', '');
 
