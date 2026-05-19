@@ -56,9 +56,9 @@ INSERT INTO molecules VALUES ('aa_9','(head ; aa_0) - (side_chain_1 ; methylene_
 
 INSERT INTO molecules VALUES ('aa_10','(head ; aa_0) - (side_chain_1 ; methylene_group) - (side_chain_2 ; methyl_group) - (side_chain_3 ; methylene_group) - (side_chain_4 ; methyl_group)');
 
-INSERT INTO molecules VALUES ('aa_11','','', '', '');
+INSERT INTO molecules VALUES ('aa_11','(head ; aa_0) - (side_chain_1 ; methylene_group) - (C_2 ; C) - (H_3 ; H) - (side_chain_4 ; methyl_group) - (side_chain_5 ; methyl_group)');
 
-INSERT INTO molecules VALUES ('aa_12','','', '', '');
+INSERT INTO molecules VALUES ('aa_12','(head ; aa_0)');
 
 INSERT INTO molecules VALUES ('aa_13','','', '', '');
 
