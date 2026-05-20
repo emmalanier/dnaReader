@@ -4,7 +4,7 @@
 
 CREATE TABLE if NOT EXISTS molecules(
 
-  moleculeId TEXT PRIMARY KEY,
+  molecule_id TEXT PRIMARY KEY,
   components TEXT
 
 );
