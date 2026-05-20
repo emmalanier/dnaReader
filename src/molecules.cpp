@@ -10,7 +10,7 @@
 ///////////////
 
 //ATOM CREATION//
-atom createAtom(std::string atomSymbol)
+/*atom createAtom(std::string atomSymbol)
 {
   atom results ;
   
@@ -217,7 +217,7 @@ atom selectAnOtherAtom(std::string atomId)
 }
 
 molecule linkWith();
-molecule separateFrom();
+molecule separateFrom();*/
 
 
 
