@@ -13,15 +13,13 @@ CREATE TABLE if NOT EXISTS molecules(
 
 INSERT INTO molecules VALUES ('acetamide_group','(C_1 ; C) - (O_2 ; O) - (primary_amine_3 ; primary_amine)');
 
-INSERT INTO molecules VALUES ('amino_group','(N_1 ; N) - (C_2 ; C) - (C_3 ; C)');
-
 INSERT INTO molecules VALUES ('benzyl_group','(m_g_1 ; methylene_group) - (p_r_2 ; phenyl_ring)');
 
 INSERT INTO molecules VALUES ('carboxylic_group','(C_1 ; C) - (O_2 ; O) - (O_3 ; O) - (H_4 ; H)');
 
 INSERT INTO molecules VALUES ('hydroxyl_group','(O_1 ; O) - (H_2 ; H)');
 
-INSERT INTO molecules VALUES ('hydroxyphenyl_group','(O_1 ; O) - (H_2 ; H) - (C_3 ; C) - (C_4 ; C) - (H_5 ; H) - (C_6 ; C) - (H_7 ; H) - (C_8 ; C) - (C_9 ; C) - (H_10 ; H) - (C_11 ; C) - (H_12 ; H)');
+INSERT INTO molecules VALUES ('hydroxyphenyl_group','(h_g_1 ; hydroxyl_group) - (C_2 ; C) - (C_3 ; C) - (H_4 ; H) - (C_5 ; C) - (H_6 ; H) - (C_7 ; C) - (C_8 ; C) - (H_9 ; H) - (C_10 ; C) - (H_11 ; H)');
 
 INSERT INTO molecules VALUES ('imidazole_ring','(N_1 ; N) - (H_2 ; H) - (C_3 ; C) - (H_4 ; H) - (C_5 ; C) - (N_6 ; N) - (C_7 ; C) - (H_8 ; H)');
 
@@ -43,10 +41,10 @@ INSERT INTO molecules VALUES ('secondary_amine', '(N_1 ; N) - (H_2 ; H)');
 
 INSERT INTO molecules VALUES ('thiol_group', '(S_1 ; S) - (H_2 ; H)');
 
--- For optimization purposes, 'aa0' refers to the "head" of amino acids (ie amino group, carboxylic group, and alpha carbon) --
+-- For optimization purposes, 'aa0' refers to the "head" of amino acids (ie primary amine, carboxylic group, and alpha carbon) --
 -- In this file, the amino acids molecules are considered to be in their standard chemical structures --
 
-INSERT INTO molecules VALUES ('aa_0','(alpha_C_1 ; C) - (a_g_2 ; amino_group) - (c_g_3 ; carboxylic_group) - (H_4 ; H)');
+INSERT INTO molecules VALUES ('aa_0','(alpha_C_1 ; C) - (p_a_2 ; primary_amine) - (c_g_3 ; carboxylic_group) - (H_4 ; H)');
 
 INSERT INTO molecules VALUES ('aa_1','(head ; aa_0) - (side_chain_1 ; methyl_group)');
 
