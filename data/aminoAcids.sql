@@ -5,11 +5,12 @@
 --TABLE CREATION--
 
 CREATE TABLE if NOT EXISTS aminoAcids(
-  aaAbbr TEXT PRIMARY KEY,
-  aaLetter TEXT,
-  aaName TEXT,
-  aaMoleculeId TEXT,
-  FOREIGN KEY (aaMoleculeId) REFERENCES molecules(moleculeId)
+  aa_abbr TEXT PRIMARY KEY,
+  aa_letter TEXT,
+  aa_name TEXT,
+  aa_molecule_id TEXT,
+  aa_InChI TEXT,
+  FOREIGN KEY (aa_molecule_id) REFERENCES molecules(molecule_id)
 );
 
 INSERT INTO aminoAcids VALUES('Ala', 'A', 'Alanine', 'aa_1');

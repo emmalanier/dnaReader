@@ -11,35 +11,35 @@ CREATE TABLE if NOT EXISTS molecules(
 
 -- Functional groups --
 
-INSERT INTO molecules VALUES ('acetamide_group','(C_1 ; C) - (O_2 ; O) - (primary_amine_3 ; primary_amine)');
+--INSERT INTO molecules VALUES ('acetamide_group','(C_1 ; C) - (O_1 ; O) - (primary_amine_1 ; primary_amine)');
 
-INSERT INTO molecules VALUES ('benzyl_group','(m_g_1 ; methylene_group) - (p_r_2 ; phenyl_ring)');
+--INSERT INTO molecules VALUES ('benzyl_group','(m_g_1 ; methylene_group) - (p_r_1 ; phenyl_ring)');
 
-INSERT INTO molecules VALUES ('carboxylic_group','(C_1 ; C) - (O_2 ; O) - (O_3 ; O) - (H_4 ; H)');
+--INSERT INTO molecules VALUES ('carboxylic_group','(C_1 ; C) - (O_1_a ; O) - (O_1_b ; O) - (H_1_b ; H)');
 
-INSERT INTO molecules VALUES ('hydroxyl_group','(O_1 ; O) - (H_2 ; H)');
+--INSERT INTO molecules VALUES ('hydroxyl_group','(O_1 ; O) - (H_1 ; H)');
 
-INSERT INTO molecules VALUES ('hydroxyphenyl_group','(h_g_1 ; hydroxyl_group) - (C_2 ; C) - (C_3 ; C) - (H_4 ; H) - (C_5 ; C) - (H_6 ; H) - (C_7 ; C) - (C_8 ; C) - (H_9 ; H) - (C_10 ; C) - (H_11 ; H)');
+--INSERT INTO molecules VALUES ('hydroxyphenyl_group','(h_g_1 ; hydroxyl_group) - (C_2 ; C) - (C_3 ; C) - (H_4 ; H) - (C_5 ; C) - (H_6 ; H) - (C_7 ; C) - (C_8 ; C) - (H_9 ; H) - (C_10 ; C) - (H_11 ; H)');
 
-INSERT INTO molecules VALUES ('imidazole_ring','(N_1 ; N) - (H_2 ; H) - (C_3 ; C) - (H_4 ; H) - (C_5 ; C) - (N_6 ; N) - (C_7 ; C) - (H_8 ; H)');
+--INSERT INTO molecules VALUES ('imidazole_ring','(N_1 ; N) - (H_2 ; H) - (C_3 ; C) - (H_4 ; H) - (C_5 ; C) - (N_6 ; N) - (C_7 ; C) - (H_8 ; H)');
 
-INSERT INTO molecules VALUES ('indolyl_group','(N_1 ; N) - (H_2 ; H) - (C_3 ; C) - (H_4 ; H) - (C_5 ; C) - (C_6 ; C) - (C_7 ; C) - (H_8 ; H) - (C_9 ; C) - (H_10 ; H) - (C_11 ; C) - (H_12 ; H) - (C_13 ; C) - (H_14 ; H) - (C_15 ; C)');
+--INSERT INTO molecules VALUES ('indolyl_group','(N_1 ; N) - (H_2 ; H) - (C_3 ; C) - (H_4 ; H) - (C_5 ; C) - (C_6 ; C) - (C_7 ; C) - (H_8 ; H) - (C_9 ; C) - (H_10 ; H) - (C_11 ; C) - (H_12 ; H) - (C_13 ; C) - (H_14 ; H) - (C_15 ; C)');
 
-INSERT INTO molecules VALUES ('methylene_group', '(C_1 ; C) - (H_2 ; H) - (H_3 ; H)');
+--INSERT INTO molecules VALUES ('methylene_group', '(C_1 ; C) - (H_2 ; H) - (H_3 ; H)');
 
-INSERT INTO molecules VALUES ('methyl_group', '(C_1 ; C) - (H_2 ; H) - (H_3 ; H) - (H_4 ; H)');
+--INSERT INTO molecules VALUES ('methyl_group', '(C_1 ; C) - (H_2 ; H) - (H_3 ; H) - (H_4 ; H)');
 
-INSERT INTO molecules VALUES ('phenyl_ring','(C_1 ; C) - (C_2 ; C) - (H_3 ; H) - (C_4 ; C) - (H_5 ; H) - (C_6 ; C) - (H_7 ; H) - (C_8 ; C) - (H_9 ; H) - (C_10 ; C) - (H_11 ; H)');
+--INSERT INTO molecules VALUES ('phenyl_ring','(C_1 ; C) - (C_2 ; C) - (H_3 ; H) - (C_4 ; C) - (H_5 ; H) - (C_6 ; C) - (H_7 ; H) - (C_8 ; C) - (H_9 ; H) - (C_10 ; C) - (H_11 ; H)');
 
-INSERT INTO molecules VALUES ('primary_amine', '(N_1 ; N) - (H_2 ; H) - (H_3 ; H)');
+--INSERT INTO molecules VALUES ('primary_amine', '(N_1 ; N) - (H_2 ; H) - (H_3 ; H)');
 
-INSERT INTO molecules VALUES ('primary_ketimine', '(C_1 ; C) - (N_2 ; N) - (H_3 ; H)');
+--INSERT INTO molecules VALUES ('primary_ketimine', '(C_1 ; C) - (N_2 ; N) - (H_3 ; H)');
 
-INSERT INTO molecules VALUES ('pyrrolidinyl_ring','(s_a_1 ; secondary_amine) - (m_g_2 ; methylene_group) - (m_g_3 ; methylene_group) - (m_g_4 ; methylene_group) - (C_5 ; C) - (H_6 ; H)');
+--INSERT INTO molecules VALUES ('pyrrolidinyl_ring','(s_a_1 ; secondary_amine) - (m_g_2 ; methylene_group) - (m_g_3 ; methylene_group) - (m_g_4 ; methylene_group) - (C_5 ; C) - (H_6 ; H)');
 
-INSERT INTO molecules VALUES ('secondary_amine', '(N_1 ; N) - (H_2 ; H)');
+--INSERT INTO molecules VALUES ('secondary_amine', '(N_1 ; N) - (H_2 ; H)');
 
-INSERT INTO molecules VALUES ('thiol_group', '(S_1 ; S) - (H_2 ; H)');
+--INSERT INTO molecules VALUES ('thiol_group', '(S_1 ; S) - (H_2 ; H)');
 
 -- For optimization purposes, 'aa0' refers to the "head" of amino acids (ie primary amine, carboxylic group, and alpha carbon) --
 -- In this file, the amino acids molecules are considered to be in their standard chemical structures --
