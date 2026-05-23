@@ -59,11 +59,6 @@ class amino_acid : public molecule
   private:
     std::string aa_abbr;
     std::string aa_letter;
-    std::string aa_name;
-    std::string aa_molecule_id;
-    std::string aa_InChI;
-    std::string aa_SMILES;
-    std::string aa_IUPAC;
 
   public:
     amino_acid();
