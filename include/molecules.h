@@ -20,132 +20,60 @@
 #include <cctype>
 #include <algorithm>
 
-////////////////////////////////////////////////////////
-//MODIFICATIONS TO DO ONCE THE CODE WILL BE WORKING : //
-//                                                    //
-//- Change the atom structure to a class              //
-//- Change the addAnAtomicBond method so that multiple//
-//  bonds can be created at once                      //
-//- Create methods to handle asymmetrical carbons,    //
-//  chirality etc                                     //
-//                                                    //
-////////////////////////////////////////////////////////
 
-//////////////
-//STRUCTURES//
-//////////////
+///////////
+//CLASSES//
+///////////
 
-struct elementInfo
+class molecule
 {
-  std::string elementSymbol;
-  std::string elementName;
-  int atomicNumber;
-  int protonNumber;
-  double atomicRadius;
-  double electronegativity;
-};
+  protected:
+    std::string molecule_id;
+    std::string molecule_name;
+    std::string molecule_formula;
+    std::string molecule_InChI;
+    std::string molecule_SMILES;
+    std::string molecule_IUPAC;
 
-struct moleculeInfo
+  public:
+    molecule();
+    molecule(const std::string&, const std::string&, const std::string&, const std::string&, const std::string&, const std::string&);
+
+    std::string get_molecule_id();
+    std::string get_molecule_name();
+    std::string get_molecule_formula();
+    std::string get_molecule_InChI();
+    std::string get_molecule_SMILES();
+    std::string get_molecule_IUPAC();
+
+    void set_molecule_id(const std::string&);
+    void set_molecule_name(const std::string&);
+    void set_molecule_formula(const std::string&);
+    void set_molecule_InChI(const std::string&);
+    void set_molecule_SMILES(const std::string&);
+    void set_molecule_IUPAC(const std::string&);
+}
+
+class amino_acid : public molecule
 {
-  std::string moleculeName;
-  std::string moleculeId; //For SQL database
-  std::string buildInstructions;
-};
+  private:
+    std::string aa_abbr;
+    std::string aa_letter;
+    std::string aa_name;
+    std::string aa_molecule_id;
+    std::string aa_InChI;
+    std::string aa_SMILES;
+    std::string aa_IUPAC;
 
-struct position
-{
-  double x;
-  double y;
-  double z;
-};
-
-struct myVector
-{
-  double size;
-
-  double x_vector;
-  double y_vector;
-  double z_vector;
-};
-
-struct electron
-{
-  position electronPosition;
-};
-
-struct electronicBond
-{
-  std::string bondType;
-
-  //VARIABLES FOR MORE COMPLEX PROBLEMS
-  int numberOfElectronPairs;
-
-  std::vector <electron> groupA;
-  std::vector <electron> groupB;
-
-  //VARIABLES FOR SIMPLIFIED MODELS
-  std::string atomId_1;
-  std::string atomId_2;
-};
-
-struct atom
-{
-  int electronsNumber;
-  int lonePairsNumber;
-  int sharedPairsNumber;
-  int totalPairsNumber;
-
-  std::string idInMolecule ;
-
-  double atomicMass;
-
-  elementInfo infos;
-  position atomPosition;
-  std::vector <electronicBond> bonds;
-};
-
-struct molecule
-{
-  moleculeInfo infos;
-  std::vector <atom> atoms;
-  std::tuple <std::string, int> numberOfAtoms;
-  std::vector <electronicBond> electronicBondsList;
-
-};
-
-
+  public:
+    amino_acid();
+    amino_acid(const std::string&, const std::string&, const std::string&, const std::string&, const std::string&, const std::string&, const std::string&);
+}
 
 ///////////////
 //C++ METHODS//
 ///////////////
 
-
-//ATOM CREATION//
-atom createAtom(sqlite3*, std::string);
-
-//MOLECULE METHODS//
-atom putFirstAtom(std::string); //PF
-electronicBond addAnAtomicBond(std::string, std::string, std::string); //AAAB
-atom selectAnOtherAtom(std::string); //SAOA
-molecule linkWith(molecule); //LW
-molecule separateFrom(molecule); //SF
-
-//MOLECULE BUILDING//
-molecule buildMolecule();
-molecule preBuiltMolecule(std::vector <std::string>, std::string);
-molecule buildFromScratch();
-
-std::vector <std::string> readInstructions(molecule);
-
-std::vector <std::string> readAAABInstruction(std::string);
-
-int atomIndex(std::vector <atom>, std::string);
-std::string findCarbonType();
-
-void outputMolecule(molecule);
-std::string createAtomId(std::string, atom, int);
-
-bool isAAABChar(char);
 
 ///////////////
 //SQL METHODS//

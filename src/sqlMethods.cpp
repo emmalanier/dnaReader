@@ -76,8 +76,7 @@ elementInfo getElementInfoFromDB(sqlite3* database, const std::string& symbol)
 
 }
 
-
-moleculeInfo getMoleculeFromDB(sqlite3* database, const std::string& moleculeName)
+/*moleculeInfo getMoleculeFromDB(sqlite3* database, const std::string& moleculeName)
 {
 
 ////VARIABLE DECLARATIONS////
@@ -122,6 +121,63 @@ moleculeInfo getMoleculeFromDB(sqlite3* database, const std::string& moleculeNam
   {
     sqlite3_finalize(prepStatement);
     throw std::runtime_error("Element not found in database: " + moleculeName);
+  }
+
+  sqlite3_finalize(prepStatement);
+
+  return results;
+
+}*/
+
+std::vector<std::string> get_amino_acid_from_db(sqlite3* database, const std::string& aa_abbr)
+{
+
+////VARIABLE DECLARATIONS////
+  std::vector<std::string> results;
+  
+  const std::string sqlRequest = "SELECT aa_abbr, aa_letter, aa_name, aa_molecule_id, aa_InChI, aa_SMILES, aa_IUPAC FROM amino_acids WHERE aa_abbr = ?;";
+
+  sqlite3_stmt* prepStatement = NULL;
+
+  int prepResult = sqlite3_prepare_v2(database, sqlRequest.c_str(), -1, &prepStatement, NULL);
+
+  //Error handling//
+  if (prepResult != SQLITE_OK) 
+  {
+    std::string err = sqlite3_errmsg(database);
+    throw std::runtime_error("Failed to prepare SQL statement for molecule query" + err);
+  }
+  //////////////////
+
+  int bindResult = sqlite3_bind_text(prepStatement, 1, aa_abbr.c_str(), -1, SQLITE_STATIC);///Should work
+
+  //Error handling//
+  if (bindResult != SQLITE_OK) 
+  {
+    sqlite3_finalize(prepStatement);
+    throw std::runtime_error("Failed to bind amino acid abbreviation parameter");
+  }
+  //////////////////
+
+  int stepResult = sqlite3_step(prepStatement);
+
+
+////ACTUAL METHOD////
+  if (stepResult == SQLITE_ROW)
+  {
+    results.push_back(reinterpret_cast<const char*>(sqlite3_column_text(prepStatement, 0)));
+    results.push_back(reinterpret_cast<const char*>(sqlite3_column_text(prepStatement, 1)));
+    results.push_back(reinterpret_cast<const char*>(sqlite3_column_text(prepStatement, 2)));
+    results.push_back(reinterpret_cast<const char*>(sqlite3_column_text(prepStatement, 3)));
+    results.push_back(reinterpret_cast<const char*>(sqlite3_column_text(prepStatement, 4)));
+    results.push_back(reinterpret_cast<const char*>(sqlite3_column_text(prepStatement, 5)));
+    results.push_back(reinterpret_cast<const char*>(sqlite3_column_text(prepStatement, 6)));
+  }
+
+  else 
+  {
+    sqlite3_finalize(prepStatement);
+    throw std::runtime_error("Amino acid not found in database: " + aa_abbr);
   }
 
   sqlite3_finalize(prepStatement);
