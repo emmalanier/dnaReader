@@ -9,3 +9,7 @@
 //C++ METHODS//
 ///////////////
 
+std::vector<std::string> convert_smiles()
+{
+
+}
