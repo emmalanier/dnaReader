@@ -8,7 +8,13 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Packages, including the window toolkit used for rendering with OpenGL
 find_package(SQLite3 REQUIRED)
 find_package(OpenGL REQUIRED)
-find_package(GLFW REQUIRED)
+
+# If not on Linux, uncomment the next line, comment lines 16 and 17
+#find_package(GLFW REQUIRED)
+
+#If on Linux, leave these as they are, and make sure to comment line 13
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(GLFW REQUIRED glfw3)
 
 # Directories
 include_directories(include)
