@@ -52,7 +52,7 @@ class molecule
     void set_molecule_InChI(const std::string&);
     void set_molecule_SMILES(const std::string&);
     void set_molecule_IUPAC(const std::string&);
-}
+};
 
 class amino_acid : public molecule
 {
@@ -66,7 +66,7 @@ class amino_acid : public molecule
 
     std::string get_aa_abbr();
     std::string get_aa_letter();
-}
+};
 
 ///////////////
 //C++ METHODS//
@@ -77,8 +77,8 @@ class amino_acid : public molecule
 //SQL METHODS//
 ///////////////
 
-elementInfo getElementInfoFromDB(sqlite3*, const std::string&);
-moleculeInfo getMoleculeFromDB(sqlite3*, const std::string&);
-sqlite3* openSQLDataBase(const char*);
+std::vector<std::string> get_element_from_DB(sqlite3*, const std::string&);
+std::vector<std::string> get_molecule_from_DB(sqlite3*, const std::string&);
+sqlite3* open_sql_data_base(const char*);
 
 #endif //MOLECULES_H

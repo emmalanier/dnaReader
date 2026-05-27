@@ -5,11 +5,11 @@
 --TABLE CREATION--
 
 CREATE TABLE if NOT EXISTS elements(
-  elementSymbol TEXT PRIMARY KEY,
-  elementName TEXT,
-  atomicNumber INT,
-  protonNumber INT,
-  atomicRadius REAL,
+  element_symbol TEXT PRIMARY KEY,
+  element_name TEXT,
+  atomic_number INT,
+  proton_number INT,
+  atomic_radius REAL,
   electronegativity DECIMAL
 );
 
