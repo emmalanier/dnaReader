@@ -72,6 +72,7 @@ class amino_acid : public molecule
 //C++ METHODS//
 ///////////////
 
+std::vector<std::string> convert_smiles(const std::string&);
 
 ///////////////
 //SQL METHODS//
