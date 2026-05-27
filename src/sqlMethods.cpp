@@ -21,13 +21,13 @@ sqlite3* openSQLDataBase(const char* filename)
   return results;
 }
 
-elementInfo getElementInfoFromDB(sqlite3* database, const std::string& symbol)
+std::vector<std::string> get_element_from_DB(sqlite3* database, const std::string& symbol)
 {
 
 ////VARIABLE DECLARATIONS////
-  elementInfo results;
+  std::vector<std::string> results;
   
-  const std::string sqlRequest = "SELECT elementSymbol, elementName, atomicNumber, protonNumber, atomicRadius, electronegativity FROM elements WHERE elementSymbol = ?;";
+  const std::string sqlRequest = "SELECT element_symbol, element_name, atomic_number, proton_number, atomic_radius, electronegativity FROM elements WHERE element_symbol = ?;";
 
   sqlite3_stmt* prepStatement = NULL;
 
@@ -56,12 +56,12 @@ elementInfo getElementInfoFromDB(sqlite3* database, const std::string& symbol)
 ////ACTUAL METHOD////
   if (stepResult == SQLITE_ROW)
   {
-    results.elementSymbol = reinterpret_cast<const char*>(sqlite3_column_text(prepStatement, 0));
-    results.elementName = reinterpret_cast<const char*>(sqlite3_column_text(prepStatement, 1));
-    results.atomicNumber = sqlite3_column_int(prepStatement, 2);
-    results.protonNumber = sqlite3_column_int(prepStatement, 3);
-    results.atomicRadius = sqlite3_column_double(prepStatement, 4);
-    results.electronegativity= sqlite3_column_double(prepStatement, 5);
+    results.push_back(reinterpret_cast<const char*>(sqlite3_column_text(prepStatement, 0)));
+    results.push_back(reinterpret_cast<const char*>(sqlite3_column_text(prepStatement, 1)));
+    results.push_back(std::to_string(sqlite3_column_int(prepStatement, 2)));
+    results.push_back(std::to_string(sqlite3_column_int(prepStatement, 3)));
+    results.push_back(std::to_string(sqlite3_column_double(prepStatement, 4)));
+    results.push_back(std::to_string(sqlite3_column_double(prepStatement, 5)));
   }
 
   else 
@@ -76,13 +76,13 @@ elementInfo getElementInfoFromDB(sqlite3* database, const std::string& symbol)
 
 }
 
-/*moleculeInfo getMoleculeFromDB(sqlite3* database, const std::string& moleculeName)
+std::vector<std::string> get_molecule_from_DB(sqlite3* database, const std::string& molecule_id)
 {
 
 ////VARIABLE DECLARATIONS////
-  moleculeInfo results;
+  std::vector<std::string> results;
   
-  const std::string sqlRequest = "SELECT moleculeName, moleculeId, buildInstructions FROM molecules WHERE moleculeName = ?;";
+  const std::string sqlRequest = "SELECT molecule_id, molecule_name, molecule_IUPAC, molecule_InChI, molecule_SMILES, molecule_formula FROM molecules WHERE molecule_id = ?;";
 
   sqlite3_stmt* prepStatement = NULL;
 
@@ -96,7 +96,7 @@ elementInfo getElementInfoFromDB(sqlite3* database, const std::string& symbol)
   }
   //////////////////
 
-  int bindResult = sqlite3_bind_text(prepStatement, 1, moleculeName.c_str(), -1, SQLITE_STATIC);///Should work
+  int bindResult = sqlite3_bind_text(prepStatement, 1, molecule_id.c_str(), -1, SQLITE_STATIC);///Should work
 
   //Error handling//
   if (bindResult != SQLITE_OK) 
@@ -112,22 +112,25 @@ elementInfo getElementInfoFromDB(sqlite3* database, const std::string& symbol)
 ////ACTUAL METHOD////
   if (stepResult == SQLITE_ROW)
   {
-    results.moleculeName = reinterpret_cast<const char*>(sqlite3_column_text(prepStatement, 0));
-    results.moleculeId = reinterpret_cast<const char*>(sqlite3_column_text(prepStatement, 1));
-    results.buildInstructions = reinterpret_cast<const char*>(sqlite3_column_text(prepStatement, 2));
+    results.push_back(reinterpret_cast<const char*>(sqlite3_column_text(prepStatement, 0)));
+    results.push_back(reinterpret_cast<const char*>(sqlite3_column_text(prepStatement, 1)));
+    results.push_back(reinterpret_cast<const char*>(sqlite3_column_text(prepStatement, 2)));
+    results.push_back(reinterpret_cast<const char*>(sqlite3_column_text(prepStatement, 3)));
+    results.push_back(reinterpret_cast<const char*>(sqlite3_column_text(prepStatement, 4)));
+    results.push_back(reinterpret_cast<const char*>(sqlite3_column_text(prepStatement, 5)));
   }
 
   else 
   {
     sqlite3_finalize(prepStatement);
-    throw std::runtime_error("Element not found in database: " + moleculeName);
+    throw std::runtime_error("Molecule not found in database: " + molecule_id);
   }
 
   sqlite3_finalize(prepStatement);
 
   return results;
 
-}*/
+}
 
 std::vector<std::string> get_amino_acid_from_db(sqlite3* database, const std::string& aa_abbr)
 {
@@ -135,7 +138,7 @@ std::vector<std::string> get_amino_acid_from_db(sqlite3* database, const std::st
 ////VARIABLE DECLARATIONS////
   std::vector<std::string> results;
   
-  const std::string sqlRequest = "SELECT aa_abbr, aa_letter, aa_name, aa_molecule_id, aa_InChI, aa_SMILES, aa_IUPAC FROM amino_acids WHERE aa_abbr = ?;";
+  const std::string sqlRequest = "SELECT aa_abbr, aa_letter, aa_name, aa_molecule_id FROM amino_acids WHERE aa_abbr = ?;";
 
   sqlite3_stmt* prepStatement = NULL;
 
@@ -169,9 +172,6 @@ std::vector<std::string> get_amino_acid_from_db(sqlite3* database, const std::st
     results.push_back(reinterpret_cast<const char*>(sqlite3_column_text(prepStatement, 1)));
     results.push_back(reinterpret_cast<const char*>(sqlite3_column_text(prepStatement, 2)));
     results.push_back(reinterpret_cast<const char*>(sqlite3_column_text(prepStatement, 3)));
-    results.push_back(reinterpret_cast<const char*>(sqlite3_column_text(prepStatement, 4)));
-    results.push_back(reinterpret_cast<const char*>(sqlite3_column_text(prepStatement, 5)));
-    results.push_back(reinterpret_cast<const char*>(sqlite3_column_text(prepStatement, 6)));
   }
 
   else 

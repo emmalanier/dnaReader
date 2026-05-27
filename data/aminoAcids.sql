@@ -9,9 +9,6 @@ CREATE TABLE if NOT EXISTS amino_acids(
   aa_letter TEXT,
   aa_name TEXT,
   aa_molecule_id TEXT,
-  aa_IUPAC TEXT,
-  aa_InChI TEXT,
-  aa_SMILES TEXT,
   FOREIGN KEY (aa_molecule_id) REFERENCES molecules(molecule_id)
 );
 

@@ -5,83 +5,30 @@
 CREATE TABLE if NOT EXISTS molecules(
 
   molecule_id TEXT PRIMARY KEY,
-  components TEXT
-
+  molecule_name TEXT,
+  molecule_IUPAC TEXT,
+  molecule_InChI TEXT,
+  molecule_SMILES TEXT,
+  molecule_formula TEXT
 );
 
--- Functional groups --
-
---INSERT INTO molecules VALUES ('acetamide_group','(C_1 ; C) - (O_1 ; O) - (primary_amine_1 ; primary_amine)');
-
---INSERT INTO molecules VALUES ('benzyl_group','(m_g_1 ; methylene_group) - (p_r_1 ; phenyl_ring)');
-
---INSERT INTO molecules VALUES ('carboxylic_group','(C_1 ; C) - (O_1_a ; O) - (O_1_b ; O) - (H_1_b ; H)');
-
---INSERT INTO molecules VALUES ('hydroxyl_group','(O_1 ; O) - (H_1 ; H)');
-
---INSERT INTO molecules VALUES ('hydroxyphenyl_group','(h_g_1 ; hydroxyl_group) - (C_2 ; C) - (C_3 ; C) - (H_4 ; H) - (C_5 ; C) - (H_6 ; H) - (C_7 ; C) - (C_8 ; C) - (H_9 ; H) - (C_10 ; C) - (H_11 ; H)');
-
---INSERT INTO molecules VALUES ('imidazole_ring','(N_1 ; N) - (H_2 ; H) - (C_3 ; C) - (H_4 ; H) - (C_5 ; C) - (N_6 ; N) - (C_7 ; C) - (H_8 ; H)');
-
---INSERT INTO molecules VALUES ('indolyl_group','(N_1 ; N) - (H_2 ; H) - (C_3 ; C) - (H_4 ; H) - (C_5 ; C) - (C_6 ; C) - (C_7 ; C) - (H_8 ; H) - (C_9 ; C) - (H_10 ; H) - (C_11 ; C) - (H_12 ; H) - (C_13 ; C) - (H_14 ; H) - (C_15 ; C)');
-
---INSERT INTO molecules VALUES ('methylene_group', '(C_1 ; C) - (H_2 ; H) - (H_3 ; H)');
-
---INSERT INTO molecules VALUES ('methyl_group', '(C_1 ; C) - (H_2 ; H) - (H_3 ; H) - (H_4 ; H)');
-
---INSERT INTO molecules VALUES ('phenyl_ring','(C_1 ; C) - (C_2 ; C) - (H_3 ; H) - (C_4 ; C) - (H_5 ; H) - (C_6 ; C) - (H_7 ; H) - (C_8 ; C) - (H_9 ; H) - (C_10 ; C) - (H_11 ; H)');
-
---INSERT INTO molecules VALUES ('primary_amine', '(N_1 ; N) - (H_2 ; H) - (H_3 ; H)');
-
---INSERT INTO molecules VALUES ('primary_ketimine', '(C_1 ; C) - (N_2 ; N) - (H_3 ; H)');
-
---INSERT INTO molecules VALUES ('pyrrolidinyl_ring','(s_a_1 ; secondary_amine) - (m_g_2 ; methylene_group) - (m_g_3 ; methylene_group) - (m_g_4 ; methylene_group) - (C_5 ; C) - (H_6 ; H)');
-
---INSERT INTO molecules VALUES ('secondary_amine', '(N_1 ; N) - (H_2 ; H)');
-
---INSERT INTO molecules VALUES ('thiol_group', '(S_1 ; S) - (H_2 ; H)');
-
--- For optimization purposes, 'aa0' refers to the "head" of amino acids (ie primary amine, carboxylic group, and alpha carbon) --
--- In this file, the amino acids molecules are considered to be in their standard chemical structures --
-
-INSERT INTO molecules VALUES ('aa_0','(alpha_C_1 ; C) - (p_a_2 ; primary_amine) - (c_g_3 ; carboxylic_group) - (H_4 ; H)');
-
-INSERT INTO molecules VALUES ('aa_1','(head ; aa_0) - (side_chain_1 ; methyl_group)');
-
-INSERT INTO molecules VALUES ('aa_2','(head ; aa_0) - (side_chain_1 ; methylene_group) - (side_chain_2 ; methylene_group) - (side_chain_3 ; methylene_group) - (side_chain_4 ; secondary_amine) - (side_chain_5 ; primary_ketimine) - (side_chain_6 ; primary_amine)');
-  
-INSERT INTO molecules VALUES ('aa_3','(head ; aa_0) - (side_chain_1 ; methylene_group) - (side_chain_2 ; acetamide_group)');
-
-INSERT INTO molecules VALUES ('aa_4','(head ; aa_0) - (side_chain_1 ; methylene_group) - (side_chain_2 ; carboxylic_group)');
-
-INSERT INTO molecules VALUES ('aa_5','(head ; aa_0) - (side_chain_1 ; methylene_group) - (side_chain_2 ; thiol_group)');
-
-INSERT INTO molecules VALUES ('aa_6','(head ; aa_0) - (side_chain_1 ; methylene_group) - (side_chain_2 ; methylene_group) - (side_chain_3 ; carboxylic_group)');
-
-INSERT INTO molecules VALUES ('aa_7','(head ; aa_0) - (side_chain_1 ; methylene_group) - (side_chain_2 ; methylene_group) - (side_chain_3 ; acetamide_group)');
-
-INSERT INTO molecules VALUES ('aa_8','(head ; aa_0) - (H_1 ; H)');
-
-INSERT INTO molecules VALUES ('aa_9','(head ; aa_0) - (side_chain_1 ; methylene_group) - (side_chain_2 ; imidazole_ring)');
-
-INSERT INTO molecules VALUES ('aa_10','(head ; aa_0) - (side_chain_1 ; methylene_group) - (side_chain_2 ; methyl_group) - (side_chain_3 ; methylene_group) - (side_chain_4 ; methyl_group)');
-
-INSERT INTO molecules VALUES ('aa_11','(head ; aa_0) - (side_chain_1 ; methylene_group) - (C_2 ; C) - (H_3 ; H) - (side_chain_4 ; methyl_group) - (side_chain_5 ; methyl_group)');
-
-INSERT INTO molecules VALUES ('aa_12','(head ; aa_0) - (side_chain_1 ; methylene_group) - (side_chain_2 ; methylene_group) - (side_chain_3 ; methylene_group) - (side_chain_4 ; methylene_group) - (side_chain_5 ; primary_amine)');
-
-INSERT INTO molecules VALUES ('aa_13','(head ; aa_0) - (side_chain_1 ; methylene_group) - (side_chain_2 ; methylene_group) - (S_3 ; S) - (side_chain_4 ; methyl_group)');
-
-INSERT INTO molecules VALUES ('aa_14','(head ; aa_0) - (side_chain_1 ; benzyl_group)');
-
-INSERT INTO molecules VALUES ('aa_15','(c_g_1 ; carboxylic_group) - (pyr_r_2 ; pyrrolidinyl_ring)');
-
-INSERT INTO molecules VALUES ('aa_16','(head ; aa_0) - (side_chain_1 ; methylene_group) - (side_chain_2 ; hydroxyl_group)');
-
-INSERT INTO molecules VALUES ('aa_17','(head ; aa_0) - (C_1 ; C) - (H_2 ; H) - (side_chain_3 ; hydroxyl_group) - (side_chain_4 ; methyl_group)');
-
-INSERT INTO molecules VALUES ('aa_18','(head ; aa_0) - (side_chain_1 ; methylene_group) - (side_chain_2 ; indolyl_group)');
-
-INSERT INTO molecules VALUES ('aa_19','(head ; aa_0) - (side_chain_1 ; methylene_group) - (side_chain_2 ; hydroxyphenyl_group)');
-
-INSERT INTO molecules VALUES ('aa_20','(head ; aa_0) - (H_1 ; H) - (C_2 ; C) - (H_3 ; H) - (side_chain_4 ; methyl_group) - (side_chain_5 ; methyl_group)');
+INSERT INTO molecules VALUES('aa_1', 'Alanine', '(2S)-2-aminopropanoic acid', 'InChI=1S/C3H7NO2/c1-2(4)3(5)6/h2H,4H2,1H3,(H,5,6)/t2-/m0/s1', 'C[C@@H](C(=O)O)N');
+INSERT INTO molecules VALUES('aa_2', 'Arginine', '(2S)-2-amino-5-(diaminomethylideneamino)pentanoic acid', 'InChI=1S/C6H14N4O2/c7-4(5(11)12)2-1-3-10-6(8)9/h4H,1-3,7H2,(H,11,12)(H4,8,9,10)/t4-/m0/s1', 'C(C[C@@H](C(=O)O)N)CN=C(N)N');
+INSERT INTO molecules VALUES('aa_3', 'Aspargine', '(2S)-2,4-diamino-4-oxobutanoic acid', 'InChI=1S/C4H8N2O3/c5-2(4(8)9)1-3(6)7/h2H,1,5H2,(H2,6,7)(H,8,9)/t2-/m0/s1', 'C([C@@H](C(=O)O)N)C(=O)N');
+INSERT INTO molecules VALUES('aa_4', 'Aspartate', '(2S)-2-aminobutanedioic acid', 'InChI=1S/C4H7NO4/c5-2(4(8)9)1-3(6)7/h2H,1,5H2,(H,6,7)(H,8,9)/t2-/m0/s1', 'C([C@@H](C(=O)O)N)C(=O)O');
+INSERT INTO molecules VALUES('aa_5', 'Cysteine', '(2R)-2-amino-3-sulfanylpropanoic acid', 'InChI=1S/C3H7NO2S/c4-2(1-7)3(5)6/h2,7H,1,4H2,(H,5,6)/t2-/m0/s1', 'C([C@@H](C(=O)O)N)S');
+INSERT INTO molecules VALUES('aa_6', 'Glutamine', '(2S)-2,5-diamino-5-oxopentanoic acid', 'InChI=1S/C5H10N2O3/c6-3(5(9)10)1-2-4(7)8/h3H,1-2,6H2,(H2,7,8)(H,9,10)/t3-/m0/s1', 'C(CC(=O)N)[C@@H](C(=O)O)N');
+INSERT INTO molecules VALUES('aa_7', 'Glutamate', '(2S)-2-aminopentanedioic acid', 'InChI=1S/C5H9NO4/c6-3(5(9)10)1-2-4(7)8/h3H,1-2,6H2,(H,7,8)(H,9,10)/t3-/m0/s1', 'C(CC(=O)O)[C@@H](C(=O)O)N');
+INSERT INTO molecules VALUES('aa_8', 'Glycine', '2-aminoacetic acid', 'InChI=1S/C2H5NO2/c3-1-2(4)5/h1,3H2,(H,4,5)', 'C(C(=O)O)N');
+INSERT INTO molecules VALUES('aa_9', 'Histidine', '(2S)-2-amino-3-(1H-imidazol-5-yl)propanoic acid', 'InChI=1S/C6H9N3O2/c7-5(6(10)11)1-4-2-8-3-9-4/h2-3,5H,1,7H2,(H,8,9)(H,10,11)/t5-/m0/s1', 'C1=C(NC=N1)C[C@@H](C(=O)O)N');
+INSERT INTO molecules VALUES('aa_10', 'Isoleucine', '(2S,3S)-2-amino-3-methylpentanoic acid', 'InChI=1S/C6H13NO2/c1-3-4(2)5(7)6(8)9/h4-5H,3,7H2,1-2H3,(H,8,9)/t4-,5-/m0/s1', 'CC[C@H](C)[C@@H](C(=O)O)N');
+INSERT INTO molecules VALUES('aa_11', 'Leucine', '(2S)-2-amino-4-methylpentanoic acid', 'InChI=1S/C6H13NO2/c1-4(2)3-5(7)6(8)9/h4-5H,3,7H2,1-2H3,(H,8,9)/t5-/m0/s1', 'CC(C)C[C@@H](C(=O)O)N');
+INSERT INTO molecules VALUES('aa_12', 'Lysine', '(2S)-2,6-diaminohexanoic acid', 'InChI=1S/C6H14N2O2/c7-4-2-1-3-5(8)6(9)10/h5H,1-4,7-8H2,(H,9,10)/t5-/m0/s1', 'C(CCN)C[C@@H](C(=O)O)N');
+INSERT INTO molecules VALUES('aa_13', 'Methionine', '(2S)-2-amino-4-methylsulfanylbutanoic acid', 'InChI=1S/C5H11NO2S/c1-9-3-2-4(6)5(7)8/h4H,2-3,6H2,1H3,(H,7,8)/t4-/m0/s1', 'CSCC[C@@H](C(=O)O)N');
+INSERT INTO molecules VALUES('aa_14', 'Phenylalanine', '(2S)-2-amino-3-phenylpropanoic acid', 'InChI=1S/C9H11NO2/c10-8(9(11)12)6-7-4-2-1-3-5-7/h1-5,8H,6,10H2,(H,11,12)/t8-/m0/s1', 'C1=CC=C(C=C1)C[C@@H](C(=O)O)N');
+INSERT INTO molecules VALUES('aa_15', 'Proline', '4-methylphenol', 'InChI=1S/C7H8O/c1-6-2-4-7(8)5-3-6/h2-5,8H,1H3', 'CC1=CC=C(C=C1)O');
+INSERT INTO molecules VALUES('aa_16', 'Serine', '(2S)-2-amino-3-hydroxypropanoic acid', 'InChI=1S/C3H7NO3/c4-2(1-5)3(6)7/h2,5H,1,4H2,(H,6,7)/t2-/m0/s1', 'C([C@@H](C(=O)O)N)O');
+INSERT INTO molecules VALUES('aa_17', 'Threonine', '(2S,3R)-2-amino-3-hydroxybutanoic acid', 'InChI=1S/C4H9NO3/c1-2(6)3(5)4(7)8/h2-3,6H,5H2,1H3,(H,7,8)/t2-,3+/m1/s1', 'C[C@H]([C@@H](C(=O)O)N)O');
+INSERT INTO molecules VALUES('aa_18', 'Tryptophane', '(2S)-2-amino-3-(1H-indol-3-yl)propanoic acid', 'InChI=1S/C11H12N2O2/c12-9(11(14)15)5-7-6-13-10-4-2-1-3-8(7)10/h1-4,6,9,13H,5,12H2,(H,14,15)/t9-/m0/s1', 'C1=CC=C2C(=C1)C(=CN2)C[C@@H](C(=O)O)N');
+INSERT INTO molecules VALUES('aa_19', 'Tyrosine', '(2S)-2-amino-3-(4-hydroxyphenyl)propanoic acid', 'InChI=1S/C9H11NO3/c10-8(9(12)13)5-6-1-3-7(11)4-2-6/h1-4,8,11H,5,10H2,(H,12,13)/t8-/m0/s1', 'C1=CC(=CC=C1C[C@@H](C(=O)O)N)O');
+INSERT INTO molecules VALUES('aa_20', 'Valine', '(2S)-2-amino-3-methylbutanoic acid', 'InChI=1S/C5H11NO2/c1-3(2)4(6)5(7)8/h3-4H,6H2,1-2H3,(H,7,8)/t4-/m0/s1', 'CC(C)[C@@H](C(=O)O)N');
