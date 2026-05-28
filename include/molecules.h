@@ -25,7 +25,40 @@
 //CLASSES//
 ///////////
 
-class molecule
+class atom
+{
+  protected:
+    std::string symbol;
+    std::string name;
+    int atomic_number;
+    double atomic_mass;
+    double atomic_radius;
+    double electronegativity;
+    int bonds_number;
+
+  public:
+    atom();
+    atom(const std::string&, const std::string&, int, double, double, double, int);
+
+    std::string get_symbol();
+    std::string get_name();
+    int get_atomic_number();
+    double get_atomic_mass();
+    double get_atomic_radius();
+    double get_electronegativity();
+    int get_bonds_number();
+
+    void set_symbol(const std::string&);
+    void set_name(const std::string&);
+    void set_atomic_number(int);
+    void set_atomic_mass(double);
+    void set_atomic_radius(double);
+    void set_electronegativity(double);
+    void set_bonds_number(int);
+
+};
+
+class molecule : public atom
 {
   protected:
     std::string molecule_id;
