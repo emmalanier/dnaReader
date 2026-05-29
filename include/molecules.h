@@ -61,12 +61,17 @@ class atom
 class molecule : public atom
 {
   protected:
+  //Stuff from the SQL database
     std::string molecule_id;
     std::string molecule_name;
     std::string molecule_formula;
     std::string molecule_InChI;
     std::string molecule_SMILES;
     std::string molecule_IUPAC;
+
+  //Stuff calculated later, from db infos
+    int number_of_atoms;
+    std::vector<std::vector<atom>> bonds;
 
   public:
     molecule();

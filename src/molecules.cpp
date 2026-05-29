@@ -9,9 +9,9 @@
 //C++ METHODS//
 ///////////////
 
-std::vector<std::string> convert_smiles(const std::string& smiles_chain)
+std::vector<std::string> convert_smiles(molecule& m)
 {
-    for(int i = 0; i < smiles_chain.length(); i++)
+    for(int i = 0; i < m.get_molecule_SMILES().length(); i++)
     {
         
     }

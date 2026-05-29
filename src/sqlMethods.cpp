@@ -27,7 +27,7 @@ std::vector<std::string> get_element_from_DB(sqlite3* database, const std::strin
 ////VARIABLE DECLARATIONS////
   std::vector<std::string> results;
   
-  const std::string sqlRequest = "SELECT element_symbol, element_name, atomic_number, proton_number, atomic_radius, electronegativity FROM elements WHERE element_symbol = ?;";
+  const std::string sqlRequest = "SELECT element_symbol, element_name, atomic_number, atomic_mass, atomic_radius, electronegativity, bonds_number FROM elements WHERE element_symbol = ?;";
 
   sqlite3_stmt* prepStatement = NULL;
 
@@ -62,6 +62,7 @@ std::vector<std::string> get_element_from_DB(sqlite3* database, const std::strin
     results.push_back(std::to_string(sqlite3_column_int(prepStatement, 3)));
     results.push_back(std::to_string(sqlite3_column_double(prepStatement, 4)));
     results.push_back(std::to_string(sqlite3_column_double(prepStatement, 5)));
+    results.push_back(std::to_string(sqlite3_column_int(prepStatement, 6)));
   }
 
   else 
