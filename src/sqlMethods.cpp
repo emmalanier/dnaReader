@@ -36,7 +36,10 @@ std::vector<std::string> get_element_from_DB(sqlite3* database, const std::strin
   //Error handling//
   if (prepResult != SQLITE_OK) 
   {
-    throw std::runtime_error("Failed to prepare SQL statement for element query");
+    std::string errorMsg = "Failed to prepare SQL statement: ";
+    errorMsg += sqlite3_errmsg(database); 
+    
+    throw std::runtime_error(errorMsg);
   }
   //////////////////
 
