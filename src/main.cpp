@@ -49,28 +49,21 @@ int main()
 
   writeAminoAcidsInFile(outputs);*////
   
-/*  sqlite3* database = nullptr;
-  int result = sqlite3_open("elements.db", &database);  // Opens the file
+  sqlite3* atom_database = nullptr;
+  int result = sqlite3_open("elements.db", & atom_database);  // Opens the file
 
   if (result != SQLITE_OK) 
   {
-    std::cerr << "Error opening database: " << sqlite3_errmsg(database) << std::endl;
-    return 1;  // or throw std::runtime_error if you prefer
+    std::cerr << "Error opening database: " << sqlite3_errmsg(atom_database) << std::endl;
+    return 1;
   }
 
 std::cout << "Database opened successfully!" << std::endl;
   
   atom oxygenAtom;
-  oxygenAtom.infos = getElementInfoFromDB( database ,"O");
 
-  std::cout << "Atom selected : " <<oxygenAtom.infos.elementName<< " ("<<oxygenAtom.infos.elementSymbol<<") "<<std::endl;*/
-
-  sqlite3* database = openSQLDataBase("molecules.db");
+  sqlite3* molecule_database = open_sql_data_base("molecules.db");
   molecule molecule1 ;
-  molecule1.infos=getMoleculeFromDB(database, "Serine");
-
-  molecule molecule2 = buildMolecule();
-  outputMolecule(molecule2);
 
   
   

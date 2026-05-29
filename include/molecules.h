@@ -38,6 +38,7 @@ class atom
 
   public:
     atom();
+    atom(const std::vector<std::string>&);
     atom(const std::string&, const std::string&, int, double, double, double, int);
 
     std::string get_symbol();

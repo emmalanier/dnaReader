@@ -5,7 +5,7 @@
 #include "molecules.h"
 
 
-sqlite3* openSQLDataBase(const char* filename)
+sqlite3* open_sql_data_base(const char* filename)
 {
   sqlite3* results = nullptr;
 

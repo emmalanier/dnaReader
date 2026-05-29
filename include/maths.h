@@ -7,8 +7,8 @@
 
 #include "molecules.h"
 
-myVector distanceVector(electron, electron);
+//myVector distanceVector(electron, electron);
 
-double distanceValue(position, position);
+//double distanceValue(position, position);
 
 #endif//MATHS_H
