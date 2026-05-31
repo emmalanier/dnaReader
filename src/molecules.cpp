@@ -294,17 +294,3 @@ void amino_acid::set_aa_letter(const std::string& letter)
 {
   aa_letter = letter;
 }
-
-
-///////////////
-//C++ METHODS//
-///////////////
-
-//Method below will prob be moved to another file
-/*std::vector<std::string> convert_smiles(molecule& m)
-{
-    for(int i = 0; i < m.get_molecule_SMILES().length(); i++)
-    {
-        
-    }
-}*/

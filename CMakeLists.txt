@@ -27,6 +27,9 @@ set(SOURCES
     src/reader.cpp
     src/sqlMethods.cpp
     src/stringMethods.cpp
+    src/moleculeBuilder.cpp
+    src/shader.cpp
+    src/window.cpp
 )
 
 # Executable creation
