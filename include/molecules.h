@@ -76,6 +76,7 @@ class molecule : public atom
 
   public:
     molecule();
+    molecule(const std::vector<std::string>&);
     molecule(const std::string&, const std::string&, const std::string&, const std::string&, const std::string&, const std::string&);
 
     std::string get_molecule_id();
@@ -84,6 +85,8 @@ class molecule : public atom
     std::string get_molecule_InChI();
     std::string get_molecule_SMILES();
     std::string get_molecule_IUPAC();
+    int get_number_of_atoms();
+    std::vector<std::vector<atom>> get_bonds();
 
     void set_molecule_id(const std::string&);
     void set_molecule_name(const std::string&);
@@ -91,6 +94,8 @@ class molecule : public atom
     void set_molecule_InChI(const std::string&);
     void set_molecule_SMILES(const std::string&);
     void set_molecule_IUPAC(const std::string&);
+    void set_number_of_atoms(int);
+    void set_bonds(const std::vector<std::vector<atom>>&);
 };
 
 class amino_acid : public molecule

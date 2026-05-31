@@ -127,6 +127,8 @@ void atom::set_bonds_number(int bn)
 //METHODS FOR MOLECULE CLASS//
 //////////////////////////////
 
+//Constructors//
+
 molecule::molecule()
 {
   molecule_id = " ";
@@ -138,6 +140,21 @@ molecule::molecule()
   number_of_atoms = 0;
 }
 
+molecule::molecule(const std::vector<std::string>& infos)
+{
+  if (infos.size() != 6) 
+  {
+    throw std::invalid_argument("Invalid number of parameters for molecule constructor");
+  }
+
+  molecule_id = infos[0];
+  molecule_name = infos[1];
+  molecule_formula = infos[2];
+  molecule_InChI = infos[3];
+  molecule_SMILES = infos[4];
+  molecule_IUPAC = infos[5];
+}
+
 molecule::molecule(const std::string& id, const std::string& name, const std::string& formula, const std::string& inchi, const std::string& smiles, const std::string& iupac)
 {
   molecule_id = id;
@@ -146,6 +163,92 @@ molecule::molecule(const std::string& id, const std::string& name, const std::st
   molecule_InChI = inchi;
   molecule_SMILES = smiles;
   molecule_IUPAC = iupac;
+}
+
+
+//Getters//
+
+std::string molecule::get_molecule_id()
+{
+  return molecule_id;
+}
+
+std::string molecule::get_molecule_name()
+{
+  return molecule_name;
+}
+
+std::string molecule::get_molecule_formula()
+{
+  return molecule_formula;
+}
+
+std::string molecule::get_molecule_InChI()
+{
+  return molecule_InChI;
+}
+
+std::string molecule::get_molecule_SMILES()
+{
+  return molecule_SMILES;
+}
+
+std::string molecule::get_molecule_IUPAC()
+{
+  return molecule_IUPAC;
+}
+
+int molecule::get_number_of_atoms()
+{
+  return number_of_atoms;
+}
+
+std::vector<std::vector<atom>> molecule::get_bonds()
+{
+  return bonds;
+}
+
+
+//Setters//
+
+void molecule::set_molecule_id(const std::string& id)
+{
+  molecule_id = id;
+}
+
+void molecule::set_molecule_name(const std::string& name)
+{
+  molecule_name = name;
+}
+
+void molecule::set_molecule_formula(const std::string& formula)
+{
+  molecule_formula = formula;
+}
+
+void molecule::set_molecule_InChI(const std::string& inchi)
+{
+  molecule_InChI = inchi;
+}
+
+void molecule::set_molecule_SMILES(const std::string& smiles)
+{
+  molecule_SMILES = smiles;
+}
+
+void molecule::set_molecule_IUPAC(const std::string& iupac)
+{
+  molecule_IUPAC = iupac;
+}
+
+void molecule::set_number_of_atoms(int num)
+{
+  number_of_atoms = num;
+}
+
+void molecule::set_bonds(const std::vector<std::vector<atom>>& b)
+{
+  bonds = b;
 }
 
 
