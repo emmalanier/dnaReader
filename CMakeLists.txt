@@ -40,6 +40,37 @@ target_link_libraries(${PROJECT_NAME} PRIVATE glfw)
 target_include_directories(${PROJECT_NAME} PRIVATE ${SQLite3_INCLUDE_DIRS})
 target_include_directories(${PROJECT_NAME} PRIVATE ${OPENGL_INCLUDE_DIRS})
 
-######
+# SQL databases handling 
+
+find_program(SQLITE3_EXECUTABLE NAMES sqlite3 REQUIRED)
+
+set (DATABASES
+    "elements"
+    "molecules"
+    "aminoAcids"
+)
+
+set(BINARY_DB_PATHS "")
+
+foreach(DB ${DATABASES})
+    set(SQL_SCRIPT_PATH "${CMAKE_CURRENT_SOURCE_DIR}/data/${DB}.sql")
+    set(BINARY_DB_PATH "${CMAKE_CURRENT_BINARY_DIR}/databases/${DB}.db")
+    list(APPEND BINARY_DB_PATHS ${BINARY_DB_PATH})
+
+    file(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/databases")
+
+    add_custom_command(
+        OUTPUT ${BINARY_DB_PATH}
+        COMMAND ${SQLITE3_EXECUTABLE} ${BINARY_DB_PATH} < ${SQL_SCRIPT_PATH}
+        DEPENDS ${SQL_SCRIPT_PATH}
+        COMMENT "Compiling ${SQL_SCRIPT_PATH} into SQLite binary DB..."
+    )
+endforeach()
+
+add_custom_target(CompileDatabases ALL DEPENDS ${BINARY_DB_PATH})
+
+add_dependencies(${PROJECT_NAME} CompileDatabases)
+
+########
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/assets/samples 
      DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/assets)

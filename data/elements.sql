@@ -7,6 +7,7 @@
 CREATE TABLE if NOT EXISTS elements(
   element_symbol TEXT PRIMARY KEY,
   element_name TEXT,
+  atomic_number INT,
   atomic_mass REAL,
   atomic_radius REAL,
   electronegativity DECIMAL,

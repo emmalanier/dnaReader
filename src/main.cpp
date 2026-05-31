@@ -49,7 +49,7 @@ int main()
 
   writeAminoAcidsInFile(outputs);*////
   
-  sqlite3* atom_database = open_sql_data_base("elements.db");
+  sqlite3* atom_database = open_sql_data_base("./databases/elements.db");
 
   std::cout << "Database opened successfully!" << std::endl;
   
@@ -66,7 +66,7 @@ int main()
   std::cout << "Electronegativity : " << atom1.get_electronegativity() << std::endl;
 
 
-  sqlite3* molecule_database = open_sql_data_base("molecules.db");
+  sqlite3* molecule_database = open_sql_data_base("./databases/molecules.db");
   molecule molecule1 ;
 
   
