@@ -251,6 +251,50 @@ void molecule::set_bonds(const std::vector<std::vector<atom>>& b)
   bonds = b;
 }
 
+////////////////////////////////
+//METHODS FOR AMINO ACID CLASS//
+////////////////////////////////
+
+//Constructors//
+
+amino_acid::amino_acid()
+{
+  aa_abbr = " ";
+  aa_letter = " ";
+}
+
+amino_acid::amino_acid(const std::string& abbr, const std::string& letter)
+{
+  aa_abbr = abbr;
+  aa_letter = letter;
+}
+
+
+//Getters//
+
+std::string amino_acid::get_aa_abbr()
+{
+  return aa_abbr;
+}
+
+std::string amino_acid::get_aa_letter()
+{
+  return aa_letter;
+}
+
+
+//Setters//
+
+void amino_acid::set_aa_abbr(const std::string& abbr)
+{
+  aa_abbr = abbr;
+}
+
+void amino_acid::set_aa_letter(const std::string& letter)
+{
+  aa_letter = letter;
+}
+
 
 ///////////////
 //C++ METHODS//

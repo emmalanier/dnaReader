@@ -110,6 +110,9 @@ class amino_acid : public molecule
 
     std::string get_aa_abbr();
     std::string get_aa_letter();
+
+    void set_aa_abbr(const std::string&);
+    void set_aa_letter(const std::string&);
 };
 
 ///////////////
