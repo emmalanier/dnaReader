@@ -20,6 +20,10 @@
 #include <cctype>
 #include <algorithm>
 
+///////////
+//DEFINES//
+///////////
+
 
 ///////////
 //CLASSES//
