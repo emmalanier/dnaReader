@@ -12,7 +12,7 @@ void convert_smiles(molecule& m)
     bool secondary_chain = false;
     bool in_brackets = false;
     
-    int* p = nullptr;
+    int char_in_brackets = 0;
     int atoms_left = m.get_number_of_atoms();
     int secondary_chains_number = 0;
 
@@ -29,6 +29,7 @@ void convert_smiles(molecule& m)
     //
     std::vector<std::string> smiles_decomposed ;
     std::vector<std::string> main_chain_atoms ;
+
 
     for(int i = 0; i < m.get_molecule_SMILES().length(); i++)
     {
@@ -61,15 +62,37 @@ void convert_smiles(molecule& m)
 
         else
         {
-            if(smiles_decomposed[i].isalpha() && !secondary_chain && !in_brackets)
+            if(in_brackets)
+            {
+                char_in_brackets++;
+            }
+
+            else if(!in_brackets)
+            {
+                char_in_brackets = 0;
+            }
+
+
+            if(std::isalpha(smiles_decomposed[i][0]) && !secondary_chain && !in_brackets)
             {
                 main_chain_atoms.push_back(smiles_decomposed[i]);
                 
             }
 
+            else if(std::isalpha(smiles_decomposed[i][0]) && !secondary_chain && in_brackets)
+            {
+                if(char_in_brackets > 1)
+                {
+                    main_chain_atoms[main_chain_atoms.size() - 1] += smiles_decomposed[i][0];
+                }
+
+                else
+                main_chain_atoms.push_back(smiles_decomposed[i]);
+            }
+
             else if(std::find(other_characters.begin(), other_characters.end(), smiles_decomposed[i]) < other_characters.end())
             {
-                main_chain_atoms[main_chain_atoms.size() - 1] += smiles_decomposed[i].begin();
+                main_chain_atoms[main_chain_atoms.size() - 1] += smiles_decomposed[i][0];
 
             }
         }   
