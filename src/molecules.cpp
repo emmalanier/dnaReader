@@ -133,7 +133,6 @@ molecule::molecule()
 {
   molecule_id = " ";
   molecule_name = " ";
-  molecule_formula = " ";
   molecule_InChI = " ";
   molecule_SMILES = " ";
   molecule_IUPAC = " ";
@@ -142,24 +141,22 @@ molecule::molecule()
 
 molecule::molecule(const std::vector<std::string>& infos)
 {
-  if (infos.size() != 6) 
+  if (infos.size() != 5) 
   {
     throw std::invalid_argument("Invalid number of parameters for molecule constructor");
   }
 
   molecule_id = infos[0];
   molecule_name = infos[1];
-  molecule_formula = infos[2];
+  molecule_IUPAC = infos[2];
   molecule_InChI = infos[3];
   molecule_SMILES = infos[4];
-  molecule_IUPAC = infos[5];
 }
 
-molecule::molecule(const std::string& id, const std::string& name, const std::string& formula, const std::string& inchi, const std::string& smiles, const std::string& iupac)
+molecule::molecule(const std::string& id, const std::string& name, const std::string& inchi, const std::string& smiles, const std::string& iupac)
 {
   molecule_id = id;
   molecule_name = name;
-  molecule_formula = formula;
   molecule_InChI = inchi;
   molecule_SMILES = smiles;
   molecule_IUPAC = iupac;

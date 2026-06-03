@@ -53,11 +53,13 @@ set (DATABASES
     "aminoAcids"
 )
 
+file(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/databases")
+
 set(BINARY_DB_PATHS "")
 
-foreach(DB ${DATABASES})
-    set(SQL_SCRIPT_PATH "${CMAKE_CURRENT_SOURCE_DIR}/data/${DB}.sql")
-    set(BINARY_DB_PATH "${CMAKE_CURRENT_BINARY_DIR}/databases/${DB}.db")
+foreach(DATABASE ${DATABASES})
+    set(SQL_SCRIPT_PATH "${CMAKE_CURRENT_SOURCE_DIR}/data/${DATABASE}.sql")
+    set(BINARY_DB_PATH "${CMAKE_CURRENT_BINARY_DIR}/databases/${DATABASE}.db")
     list(APPEND BINARY_DB_PATHS ${BINARY_DB_PATH})
 
     file(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/databases")
@@ -70,7 +72,7 @@ foreach(DB ${DATABASES})
     )
 endforeach()
 
-add_custom_target(CompileDatabases ALL DEPENDS ${BINARY_DB_PATH})
+add_custom_target(CompileDatabases ALL DEPENDS ${BINARY_DB_PATHS})
 
 add_dependencies(${PROJECT_NAME} CompileDatabases)
 

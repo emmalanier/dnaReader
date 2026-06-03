@@ -86,7 +86,7 @@ std::vector<std::string> get_molecule_from_DB(sqlite3* database, const std::stri
 ////VARIABLE DECLARATIONS////
   std::vector<std::string> results;
   
-  const std::string sqlRequest = "SELECT molecule_id, molecule_name, molecule_IUPAC, molecule_InChI, molecule_SMILES, molecule_formula FROM molecules WHERE molecule_id = ?;";
+  const std::string sqlRequest = "SELECT molecule_id, molecule_name, molecule_IUPAC, molecule_InChI, molecule_SMILES FROM molecules WHERE molecule_id = ?;";
 
   sqlite3_stmt* prepStatement = NULL;
 
@@ -121,7 +121,6 @@ std::vector<std::string> get_molecule_from_DB(sqlite3* database, const std::stri
     results.push_back(reinterpret_cast<const char*>(sqlite3_column_text(prepStatement, 2)));
     results.push_back(reinterpret_cast<const char*>(sqlite3_column_text(prepStatement, 3)));
     results.push_back(reinterpret_cast<const char*>(sqlite3_column_text(prepStatement, 4)));
-    results.push_back(reinterpret_cast<const char*>(sqlite3_column_text(prepStatement, 5)));
   }
 
   else 

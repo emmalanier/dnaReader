@@ -67,8 +67,22 @@ int main()
 
 
   sqlite3* molecule_database = open_sql_data_base("./databases/molecules.db");
-  molecule molecule1 ;
+  std::string id_molecule = "aa_1";
+  std::vector<std::string> molecule_infos = get_molecule_from_DB(molecule_database, id_molecule);
+  molecule molecule1(molecule_infos);
 
+  std::cout << "Molecule : " << molecule1.get_molecule_name() << std::endl;
+  std::cout << "Formula : " << molecule1.get_molecule_formula() << std::endl;
+  std::cout << "InChI : " << molecule1.get_molecule_InChI() << std::endl;
+  std::cout << "SMILES : " << molecule1.get_molecule_SMILES() << std::endl;
+  std::cout << "IUPAC name : " << molecule1.get_molecule_IUPAC() << std::endl;
+
+  std::vector<std::string> test = convert_smiles(molecule1);
+
+  for(int i = 0; i < test.size(); i++)
+  {
+    std::cout << test[i] << std::endl;
+  }
   
   
   return 0;

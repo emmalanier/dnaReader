@@ -7,7 +7,7 @@
 //The goal here is to convert the SMILES into something useable for OpenGl rendering. The first step will be converting
 //it into a Cramer representation. To do so, we will first not take into account the scale/length/angles etc.
 
-void convert_smiles(molecule& m)
+std::vector<std::string> convert_smiles(molecule& m)
 {
     bool secondary_chain = false;
     bool in_brackets = false;
@@ -39,23 +39,23 @@ void convert_smiles(molecule& m)
     for(int i = 0; i < smiles_decomposed.size(); i++)
     {
 
-        if (smiles_decomposed[i] == "(")
+        if(smiles_decomposed[i] == "(")
         {
             secondary_chain = true;
             secondary_chains_number++;
         }
 
-        else if (smiles_decomposed[i] == ")")
+        else if(smiles_decomposed[i] == ")")
         {
             secondary_chain = false;
         }
 
-        else if (smiles_decomposed[i] == "[")
+        else if(smiles_decomposed[i] == "[")
         {
             in_brackets = true;
         }
 
-        else if (smiles_decomposed[i] == "]")
+        else if(smiles_decomposed[i] == "]")
         {
             in_brackets = false;
         }
@@ -90,11 +90,12 @@ void convert_smiles(molecule& m)
                 main_chain_atoms.push_back(smiles_decomposed[i]);
             }
 
-            else if(std::find(other_characters.begin(), other_characters.end(), smiles_decomposed[i]) < other_characters.end())
+            else if(std::find(other_characters.begin(), other_characters.end(), smiles_decomposed[i][0]) < other_characters.end())
             {
                 main_chain_atoms[main_chain_atoms.size() - 1] += smiles_decomposed[i][0];
 
             }
         }   
     }
+    return main_chain_atoms;
 }

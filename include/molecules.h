@@ -81,7 +81,7 @@ class molecule : public atom
   public:
     molecule();
     molecule(const std::vector<std::string>&);
-    molecule(const std::string&, const std::string&, const std::string&, const std::string&, const std::string&, const std::string&);
+    molecule(const std::string&, const std::string&, const std::string&, const std::string&, const std::string&);
 
     std::string get_molecule_id();
     std::string get_molecule_name();
@@ -123,7 +123,7 @@ class amino_acid : public molecule
 //C++ METHODS//
 ///////////////
 
-std::vector<std::string> convert_smiles(const std::string&);
+std::vector<std::string> convert_smiles(molecule&);
 
 ///////////////
 //SQL METHODS//

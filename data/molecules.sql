@@ -8,8 +8,7 @@ CREATE TABLE if NOT EXISTS molecules(
   molecule_name TEXT,
   molecule_IUPAC TEXT,
   molecule_InChI TEXT,
-  molecule_SMILES TEXT,
-  molecule_formula TEXT
+  molecule_SMILES TEXT
 );
 
 INSERT INTO molecules VALUES('aa_1', 'Alanine', '(2S)-2-aminopropanoic acid', 'InChI=1S/C3H7NO2/c1-2(4)3(5)6/h2H,4H2,1H3,(H,5,6)/t2-/m0/s1', 'C[C@@H](C(=O)O)N');
