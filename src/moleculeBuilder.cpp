@@ -33,8 +33,10 @@ std::vector<std::string> convert_smiles(molecule& m)
 
     for(int i = 0; i < m.get_molecule_SMILES().length(); i++)
     {
-        smiles_decomposed[i] = (m.get_molecule_SMILES()[i]);
+        smiles_decomposed.push_back(std::string(1, m.get_molecule_SMILES()[i]));
     }
+
+    std::cout << "OK" << std::endl;
 
     for(int i = 0; i < smiles_decomposed.size(); i++)
     {
