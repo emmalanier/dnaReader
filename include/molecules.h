@@ -123,7 +123,12 @@ class amino_acid : public molecule
 //C++ METHODS//
 ///////////////
 
+//Convert SMILES METHOD (incomplete)//
 std::vector<std::string> convert_smiles(molecule&);
+
+//Sub methods
+std::vector<std::string> decompose_smiles(molecule&);
+void check_is_in_brackets(bool&, const std::string&, const std::string&, const std::string&);
 
 ///////////////
 //SQL METHODS//
