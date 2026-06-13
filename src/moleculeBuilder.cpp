@@ -21,79 +21,104 @@ std::vector<std::string> decompose_smiles(molecule& m)
     return results;
 }
 
-std::vector<int> get_opening_brackets_pos(const std::vector<std::string>& smiles_decomposed)
+std::vector<int[2]> get_bracket_pairs(const std::vector<std::string>& smiles_decomposed)
 {
-    std::vector<int> results ;
+    std::vector<int[2]> results ;
+    std::vector<bool> closed; 
+    int opened_brackets = 0;
 
     for(int i = 0; i < smiles_decomposed.size(); i++)
     {
         if(smiles_decomposed[i] == "[")
         {
-            results.push_back(i);
+            results.push_back({i, 0});
+            opened_brackets++;
+            closed.push_back(false);
+        }
+
+        else if(smiles_decomposed[i] == "]")
+        {
+            if(opened_brackets == 1)
+            {
+                results[results.size() - 1][1] = i;
+                closed[closed.size() - 1] = true;
+            }
+
+            else if(opened_brackets > 1)
+            {
+                for(int j = results.size() - 1; j >= 0; j--)
+                {
+                    if(!closed[j])
+                    {
+                        results[j][1] = i;
+                        closed[j] = true;
+                        break;
+                    }
+                }
+
+            }
+            
+            opened_brackets--;
+
         }
     }
 
     return results;
 }
 
-std::vector<int> get_opening_sc_pos(const std::vector<std::string>& smiles_decomposed)
+std::vector<int[2]> get_sc_pairs(const std::vector<std::string>& smiles_decomposed)
 {
-    std::vector<int> results ;
+    std::vector<int[2]> results ;
+    std::vector<bool> closed; 
+    int opened_sc = 0;
 
     for(int i = 0; i < smiles_decomposed.size(); i++)
     {
         if(smiles_decomposed[i] == "(")
         {
-            results.push_back(i);
+            results.push_back({i, 0});
+            opened_sc++;
+            closed.push_back(false);
         }
-    }
 
-    return results;
-}
-
-std::vector<int> get_closing_brackets_pos(const std::vector<std::string>& smiles_decomposed)
-{
-    std::vector<int> results ;
-
-    for(int i = 0; i < smiles_decomposed.size(); i++)
-    {
-        if(smiles_decomposed[i] == "]")
+        else if(smiles_decomposed[i] == ")")
         {
-            results.push_back(i);
+            if(opened_sc == 1)
+            {
+                results[results.size() - 1][1] = i;
+                closed[closed.size() - 1] = true;
+            }
+
+            else if(opened_sc > 1)
+            {
+                for(int j = results.size() - 1; j >= 0; j--)
+                {
+                    if(!closed[j])
+                    {
+                        results[j][1] = i;
+                        closed[j] = true;
+                        break;
+                    }
+                }
+
+            }
+            
+            opened_sc--;
+
         }
     }
-
-    return results;
-}
-
-std::vector<int> get_closing_sc_pos(const std::vector<std::string>& smiles_decomposed)
-{
-    std::vector<int> results ;
-
-    for(int i = 0; i < smiles_decomposed.size(); i++)
-    {
-        if(smiles_decomposed[i] == ")")
-        {
-            results.push_back(i);
-        }
-    }
-
+    
     return results;
 }
 
 std::vector<std::vector<std::string>> get_brackets_content(const std::vector<std::string>& smiles_decomposed, const std::vector<int>& opening_brackets, const std::vector<int>& closing_brackets)
 {
     std::vector<std::vector<std::string>> results ;
+    int encapsulated_brackets = 0;
 
-    for(int i=0; i<opening_brackets.size(); i++)
+    for(int i = 0; i < opening_brackets.size(); i++)
     {
-        int encapsulated_brackets = 0;
-
-        for (int j = i + 1; j < closing_brackets.size(); j++)
-        {
-            encapsulated_brackets = std::count_if(smiles_decomposed.begin(), smiles_decomposed.end(), opening_brackets[j] < closing_brackets[i]);
-        }
-            
+        encapsulated_brackets = std::count_if(opening_brackets.begin()+i+1, opening_brackets.end(), opening_brackets[i+1]>closing_brackets[i]);
     }
 
     return results;
@@ -140,8 +165,8 @@ std::vector<std::string> convert_smiles(molecule& m)
 
     for(int i = 0; i < smiles_decomposed.size(); i++)
     {
-        check_is_in_brackets(in_brackets, "[", "]", smiles_decomposed[i]);
-        check_is_in_brackets(secondary_chain, "(", ")", smiles_decomposed[i]);
+        //check_is_in_brackets(in_brackets, "[", "]", smiles_decomposed[i]);
+        //check_is_in_brackets(secondary_chain, "(", ")", smiles_decomposed[i]);
 
         if(in_brackets)
 {
