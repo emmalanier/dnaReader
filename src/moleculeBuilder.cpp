@@ -21,6 +21,45 @@ std::vector<std::string> decompose_smiles(molecule& m)
     return results;
 }
 
+std::vector<std::string> get_main_chain_atoms(const std::vector<std::string>& smiles_decomposed)
+{
+
+    bool secondary_chain = false;
+    bool in_brackets = false;
+
+    std::vector<std::string> results ;
+
+    for(int i = 0; i < smiles_decomposed.size(); i++)
+    {
+
+        if(std::isalpha(smiles_decomposed[i][0]) && !secondary_chain && !in_brackets)
+        {
+            results.push_back(smiles_decomposed[i]);
+            
+        }
+
+        else if(std::isalpha(smiles_decomposed[i][0]) && !secondary_chain && in_brackets)
+        {
+            if(char_in_brackets > 1)
+            {
+                results[results.size() - 1] += smiles_decomposed[i][0];
+            }
+
+            else
+            results.push_back(smiles_decomposed[i]);
+        }
+
+        else if(std::find(other_characters.begin(), other_characters.end(), smiles_decomposed[i][0]) < other_characters.end() && !secondary_chain)
+        {
+            results[results.size() - 1] += smiles_decomposed[i][0];
+
+        }
+    }
+
+    
+    return results;
+}
+
 std::vector<int[2]> get_bracket_pairs(const std::vector<std::string>& smiles_decomposed)
 {
     std::vector<int[2]> results ;
@@ -111,31 +150,17 @@ std::vector<int[2]> get_sc_pairs(const std::vector<std::string>& smiles_decompos
     return results;
 }
 
-std::vector<std::vector<std::string>> get_brackets_content(const std::vector<std::string>& smiles_decomposed, const std::vector<int>& opening_brackets, const std::vector<int>& closing_brackets)
+std::vector<std::string> get_brackets_sc_content(const std::vector<std::string>& smiles_decomposed, const int& opening_pos, const int& closing_pos)
 {
-    std::vector<std::vector<std::string>> results ;
-    int encapsulated_brackets = 0;
+    std::vector<std::string> results ;
 
-    for(int i = 0; i < opening_brackets.size(); i++)
+    for(int i = opening_pos + 1; i < closing_pos; i++)
     {
-        encapsulated_brackets = std::count_if(opening_brackets.begin()+i+1, opening_brackets.end(), opening_brackets[i+1]>closing_brackets[i]);
+        results.push_back(smiles_decomposed[i]);
     }
 
     return results;
 }
-
-//int brackets_opened(bool& condition, const std::string& beginning_string, const std::string& end_string, const std::string& current_string)
-//{
-//    if(beginning_string == current_string)
-//    {
-//        condition = true;
-//    }
-
-//    else if(end_string == current_string)
-//    {
-//        condition = false;
-//    }
-//}
 
 //Main method
 std::vector<std::string> convert_smiles(molecule& m)
@@ -165,19 +190,6 @@ std::vector<std::string> convert_smiles(molecule& m)
 
     for(int i = 0; i < smiles_decomposed.size(); i++)
     {
-        //check_is_in_brackets(in_brackets, "[", "]", smiles_decomposed[i]);
-        //check_is_in_brackets(secondary_chain, "(", ")", smiles_decomposed[i]);
-
-        if(in_brackets)
-{
-            char_in_brackets++;
-        }
-
-        else if(!in_brackets)
-        {
-            char_in_brackets = 0;
-        }
-
 
         if(std::isalpha(smiles_decomposed[i][0]) && !secondary_chain && !in_brackets)
         {

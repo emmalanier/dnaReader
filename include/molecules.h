@@ -128,9 +128,10 @@ std::vector<std::string> convert_smiles(molecule&);
 
 //Sub methods
 std::vector<std::string> decompose_smiles(molecule&);
+std::vector<std::string> get_main_chain_atoms(const std::vector<std::string>&);
 std::vector<int[2]> get_bracket_pairs(const std::vector<std::string>&);
 std::vector<int[2]> get_sc_pairs(const std::vector<std::string>&);
-//void check_is_in_brackets(bool&, const std::string&, const std::string&, const std::string&);
+std::vector<std::string> get_brackets_sc_content(const std::vector<std::string>&, const int&, const int&);
 
 ///////////////
 //SQL METHODS//
